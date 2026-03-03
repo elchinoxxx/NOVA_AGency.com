@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NOVA DIGITAL | Agencia High-End</title>
+    
+    <!-- React & ReactDOM -->
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    
+    <!-- Babel para traducir JSX -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Fuentes Google -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+
+    <!-- Configuración Tailwind Personalizada -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'gradient': 'gradient 8s linear infinite',
+                        'fade-in': 'fadeIn 0.3s ease-out forwards',
+                        'fade-in-up': 'fadeInUp 0.5s ease-out forwards',
+                    },
+                    keyframes: {
+                        gradient: {
+                            '0%, 100%': { 'background-size': '200% 200%', 'background-position': 'left center' },
+                            '50%': { 'background-size': '200% 200%', 'background-position': 'right center' },
+                        },
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body { background-color: #050505; color: white; overflow-x: hidden; }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0a0a0a; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #555; }
+    </style>
+</head>
+<body>
+
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect, createContext, useContext } = React;
+
+        // --- CONTEXTO DE IDIOMAS ---
+        const LanguageContext = createContext();
+
+        const translations = {
+            es: {
+                nav: { logo: "NOVA", logoAccent: "DIGITAL" },
+                hero: {
+                    badge: "Agenda Abierta 2026",
+                    title1: "CREAMOS EL",
+                    title2: "CAOS VISUAL",
+                    desc: "Agencia de Edición High-End, Desarrollo Web y Estrategia. Transformamos marcas aburridas en referentes digitales.",
+                    btnServices: "NUESTROS SERVICIOS",
+                    menuServicesTitle: "Servicios Especializados",
+                    menuItem1: "Consultoría Estratégica 1:1",
+                    menuItem2: "Auditoría de Canal / SEO",
+                    menuItem3: "Gestión de Pauta (Ads)",
+                    menuItem4: "Creación de Embudos (Funnels)"
+                },
+                philosophy: {
+                    tag: "Nuestra Filosofía",
+                    title: "No somos una agencia tradicional. Somos tu socio de crecimiento.",
+                    desc: "Combinamos la creatividad humana con la precisión de la Inteligencia Artificial para crear ecosistemas digitales que no solo se ven bien, sino que venden. Desde la pre-producción hasta la post-producción más avanzada.",
+                    views: "Vistas Generadas",
+                    projects: "Proyectos",
+                    support: "Soporte",
+                    retention: "Retención"
+                },
+                services: {
+                    tag: "Qué Ofrecemos",
+                    title: "SOLUCIONES 360 GRADOS",
+                    items: [
+                        { title: "Edición High-End", desc: "Narrativa visual que retiene. Desde micro-contenidos con subtítulos dinámicos hasta documentales." },
+                        { title: "Diseño & Miniaturas", desc: "El CTR lo es todo. Diseñamos miniaturas que gritan 'clic' y sistemas de branding completos." },
+                        { title: "Web & Funnels", desc: "No solo sitios web bonitos. Construimos Landing Pages optimizadas para convertir." },
+                        { title: "Social Media Growth", desc: "Estrategia de contenido, guiones persuasivos y gestión de comunidades." },
+                        { title: "Producción en Estudio", desc: "Acceso a estudio con Pantalla Verde/Negra, Iluminación RGB y Cámaras de Cine." },
+                        { title: "Implementación de IA", desc: "Automatización de flujos, clonación de voz, avatares digitales y chatbots." }
+                    ]
+                },
+                production: {
+                    tag: "Alcance Operativo",
+                    title1: "PRODUCCIÓN SIN LÍMITES.",
+                    title2: "CERO EXCUSAS.",
+                    desc: "No somos la típica agencia. Somos el escuadrón que entra, organiza todo y hace que las cosas pasen. Dominamos Producción y Post-producción, creando contenido brutal para creadores, empresas y productoras de televisión.",
+                    item1Title: "Presencia Nacional e Internacional",
+                    item1Desc: "Trabajamos 100% remoto o viajamos. Ojo: los vuelos, viáticos, la renta del equipo y el servicio se cobran por aparte.",
+                    item2Title: "Arsenal a la Medida de tu Presupuesto",
+                    item2Desc: "Desde un setup ágil con Osmo Pocket 3, hasta cámaras de cine. Evaluamos tus necesidades y te decimos qué equipo llevar para garantizar calidad.",
+                    item3Title: "Tu Tiempo Vale, el Nuestro También",
+                    item3Desc: "Por respeto a nuestros procesos, las muestras de trabajo personalizado, reuniones o consultorías estratégicas se cobran por aparte.",
+                    overlay: "Rec. Set de Producción Global"
+                },
+                showcase: {
+                    title1: "ARSENAL",
+                    title2: "VISUAL",
+                    desc: "Podemos producir cualquier estilo. Trabajamos tanto para creadores de contenido como para agencias, empresas corporativas y productoras de televisión.",
+                    subtitle: "Formatos adaptables: Vertical (9:16) y Horizontal (16:9)",
+                    dynEdit: "Edición Dinámica"
+                },
+                packages: {
+                    title1: "PAQUETES",
+                    title2: "EXCLUSIVOS",
+                    desc: "Selecciona tu formato para ver los paquetes adaptados a ti.",
+                    btnViewTiers: "VER NIVELES",
+                    tabTiers: "Packs",
+                    tabCustom: "A la medida",
+                    styleLabel: "Elige la Complejidad de Edición",
+                    styleBasic: "Básico",
+                    styleSemi: "Semi-Dinámico",
+                    styleDyn: "Dinámico",
+                    step1: "1. Servicios Activos",
+                    step2: "2. Cantidad",
+                    selectService: "Selecciona un servicio arriba para ajustar la cantidad",
+                    summary: "RESUMEN MENSUAL",
+                    estimated: "Inversión Estimada",
+                    btnConfirm: "Contratar por WhatsApp",
+                    paymentNote: "Aceptamos pagos seguros exclusivamente vía Stripe y PayPal.",
+                    currency: "MXN",
+                    data: {
+                        reels: {
+                            title: "Solo Reels",
+                            desc: "Contenido vertical de alto impacto para TikTok, IG y Shorts.",
+                            tiers: [
+                                { name: "Starter", items: { reels: 15, thumbs: 0, videos: 0, design: 0 }, feats: ["15 Reels / Shorts", "Gancho Visual Fuerte", "Subtítulos Estándar"] },
+                                { name: "Creator", items: { reels: 22, thumbs: 0, videos: 0, design: 0 }, feats: ["22 Reels / Shorts", "Estrategia de Retención", "Efectos de Sonido Pro"] },
+                                { name: "Viral", items: { reels: 32, thumbs: 0, videos: 0, design: 0 }, feats: ["32 Reels / Shorts", "Animaciones Premium", "Prioridad de Entrega"] }
+                            ]
+                        },
+                        youtube: {
+                            title: "Videos Largos + Minis",
+                            desc: "Retención profunda y CTR explosivo para tu canal principal.",
+                            tiers: [
+                                { name: "Básico", items: { reels: 0, thumbs: 2, videos: 2, design: 0 }, feats: ["2 Videos Largos", "2 Miniaturas Pro", "Cortes Dinámicos"] },
+                                { name: "Constante", items: { reels: 0, thumbs: 4, videos: 4, design: 0 }, feats: ["4 Videos Largos", "4 Miniaturas Pro", "Diseño de CTR Alto"] },
+                                { name: "Autoridad", items: { reels: 0, thumbs: 8, videos: 8, design: 0 }, feats: ["8 Videos Largos", "8 Miniaturas Pro", "Retención Masterclass"] }
+                            ]
+                        },
+                        mixed: {
+                            title: "Ecosistema Mixto",
+                            desc: "Dominio omnicanal. Todo lo que necesitas en un solo lugar.",
+                            tiers: [
+                                { name: "Novato", items: { reels: 15, thumbs: 3, videos: 1, design: 0 }, feats: ["15 Reels / Shorts", "3 Miniaturas", "1 Video Largo"] },
+                                { name: "Pro", items: { reels: 20, thumbs: 4, videos: 4, design: 0 }, feats: ["20 Reels / Shorts", "4 Miniaturas", "4 Videos Largos"] },
+                                { name: "Elite", items: { reels: 30, thumbs: 8, videos: 8, design: 0 }, feats: ["30 Reels / Shorts", "8 Miniaturas", "8 Videos Largos", "Asignación VIP"] }
+                            ]
+                        }
+                    },
+                    customLabels: { reels: "Reels / Shorts", thumbs: "Miniaturas", videos: "Videos Largos", design: "Diseño Gráfico" },
+                    whatsappMsg: "Hola NovaDigital! Me interesa una cotización del paquete"
+                },
+                team: {
+                    tag: "Liderazgo",
+                    title: "MENTE MAESTRA",
+                    role: "Founder & CEO",
+                    desc: "Editor en Jefe, Diseñador e Ilustrador Principal. La mente maestra detrás de la estrategia visual y el manejo de redes sociales de la agencia."
+                },
+                footer: {
+                    desc: "Creando el futuro visual de internet, un píxel a la vez.",
+                    srvTitle: "Servicios",
+                    legalTitle: "Legal",
+                    srv1: "Web", srv2: "Video", srv3: "Diseño",
+                    leg1: "Privacidad", leg2: "Términos",
+                    rights: "Todos los derechos reservados."
+                }
+            },
+            en: {
+                nav: { logo: "NOVA", logoAccent: "DIGITAL" },
+                hero: {
+                    badge: "Books Open 2026",
+                    title1: "WE CREATE",
+                    title2: "VISUAL CHAOS",
+                    desc: "High-End Editing, Web Development & Strategy Agency. We transform boring brands into digital benchmarks.",
+                    btnServices: "OUR SERVICES",
+                    menuServicesTitle: "Specialized Services",
+                    menuItem1: "1:1 Strategic Consulting",
+                    menuItem2: "Channel Audit / SEO",
+                    menuItem3: "Paid Ads Management",
+                    menuItem4: "Sales Funnels Creation"
+                },
+                philosophy: {
+                    tag: "Our Philosophy",
+                    title: "We are not a traditional agency. We are your growth partner.",
+                    desc: "We combine human creativity with AI precision to create digital ecosystems that don't just look good, they sell. From pre-production to advanced post-production.",
+                    views: "Generated Views",
+                    projects: "Projects",
+                    support: "Support",
+                    retention: "Retention"
+                },
+                services: {
+                    tag: "What We Offer",
+                    title: "360 DEGREE SOLUTIONS",
+                    items: [
+                        { title: "High-End Editing", desc: "Visual storytelling that retains. From micro-content with dynamic subtitles to full documentaries." },
+                        { title: "Design & Thumbnails", desc: "CTR is everything. We design thumbnails that scream 'click' and complete branding systems." },
+                        { title: "Web & Funnels", desc: "Not just pretty websites. We build Landing Pages optimized for high conversion rates." },
+                        { title: "Social Media Growth", desc: "Content strategy, persuasive scripts, and community management." },
+                        { title: "Studio Production", desc: "Access to our studio with Green/Black Screen, RGB Lighting, and Cinema Cameras." },
+                        { title: "AI Implementation", desc: "Workflow automation, voice cloning, digital avatars, and custom chatbots." }
+                    ]
+                },
+                production: {
+                    tag: "Operational Scope",
+                    title1: "PRODUCTION WITHOUT LIMITS.",
+                    title2: "ZERO EXCUSES.",
+                    desc: "We are the squad that steps in and makes things happen. We master Production and Post-production, creating brutal content for creators, businesses, and TV producers.",
+                    item1Title: "National & International Presence",
+                    item1Desc: "We work 100% remote or travel to you. Note: flights, travel expenses, equipment rental, and on-site service are charged separately.",
+                    item2Title: "Arsenal Tailored to Your Budget",
+                    item2Desc: "From an agile Osmo Pocket 3 setup to cinema cameras. We evaluate your needs and bring exactly what's required to guarantee quality.",
+                    item3Title: "Your Time Matters, Ours Too",
+                    item3Desc: "Out of respect for our processes, custom work samples, meetings, or strategic consulting are charged separately.",
+                    overlay: "Rec. Global Production Set"
+                },
+                showcase: {
+                    title1: "VISUAL",
+                    title2: "ARSENAL",
+                    desc: "We can produce any style. We work for content creators, agencies, corporate businesses, and TV production companies.",
+                    subtitle: "Adaptable formats: Vertical (9:16) & Horizontal (16:9)",
+                    dynEdit: "Dynamic Editing"
+                },
+                packages: {
+                    title1: "EXCLUSIVE",
+                    title2: "PACKAGES",
+                    desc: "Select your format to view tailored packages.",
+                    btnViewTiers: "VIEW TIERS",
+                    tabTiers: "Packs",
+                    tabCustom: "Custom",
+                    styleLabel: "Choose Editing Complexity",
+                    styleBasic: "Basic",
+                    styleSemi: "Semi-Dynamic",
+                    styleDyn: "Dynamic",
+                    step1: "1. Active Services",
+                    step2: "2. Quantity",
+                    selectService: "Select a service above to adjust quantity",
+                    summary: "MONTHLY SUMMARY",
+                    estimated: "Estimated Investment",
+                    btnConfirm: "Hire via WhatsApp",
+                    paymentNote: "We accept secure payments exclusively via Stripe and PayPal.",
+                    currency: "MXN",
+                    data: {
+                        reels: {
+                            title: "Reels Only",
+                            desc: "High-impact vertical content for TikTok, IG, and Shorts.",
+                            tiers: [
+                                { name: "Starter", items: { reels: 15, thumbs: 0, videos: 0, design: 0 }, feats: ["15 Reels / Shorts", "Strong Visual Hook", "Standard Subtitles"] },
+                                { name: "Creator", items: { reels: 22, thumbs: 0, videos: 0, design: 0 }, feats: ["22 Reels / Shorts", "Retention Strategy", "Pro Sound Effects"] },
+                                { name: "Viral", items: { reels: 32, thumbs: 0, videos: 0, design: 0 }, feats: ["32 Reels / Shorts", "Premium Animations", "Delivery Priority"] }
+                            ]
+                        },
+                        youtube: {
+                            title: "Long Videos + Thumbs",
+                            desc: "Deep retention and explosive CTR for your main channel.",
+                            tiers: [
+                                { name: "Basic", items: { reels: 0, thumbs: 2, videos: 2, design: 0 }, feats: ["2 Long Videos", "2 Pro Thumbnails", "Dynamic Cuts"] },
+                                { name: "Consistent", items: { reels: 0, thumbs: 4, videos: 4, design: 0 }, feats: ["4 Long Videos", "4 Pro Thumbnails", "High CTR Design"] },
+                                { name: "Authority", items: { reels: 0, thumbs: 8, videos: 8, design: 0 }, feats: ["8 Long Videos", "8 Pro Thumbnails", "Retention Masterclass"] }
+                            ]
+                        },
+                        mixed: {
+                            title: "Mixed Ecosystem",
+                            desc: "Omnichannel dominance. Everything you need in one place.",
+                            tiers: [
+                                { name: "Rookie", items: { reels: 15, thumbs: 3, videos: 1, design: 0 }, feats: ["15 Reels / Shorts", "3 Thumbnails", "1 Long Video"] },
+                                { name: "Pro", items: { reels: 20, thumbs: 4, videos: 4, design: 0 }, feats: ["20 Reels / Shorts", "4 Thumbnails", "4 Long Videos"] },
+                                { name: "Elite", items: { reels: 30, thumbs: 8, videos: 8, design: 0 }, feats: ["30 Reels / Shorts", "8 Thumbnails", "8 Long Videos", "VIP Assignment"] }
+                            ]
+                        }
+                    },
+                    customLabels: { reels: "Reels / Shorts", thumbs: "Thumbnails", videos: "Long Videos", design: "Graphic Design" },
+                    whatsappMsg: "Hello NovaDigital! I am interested in a quote for the package"
+                },
+                team: {
+                    tag: "Leadership",
+                    title: "MASTERMIND",
+                    role: "Founder & CEO",
+                    desc: "Editor-in-Chief, Lead Designer & Illustrator. The mastermind behind the agency's visual strategy and social media management."
+                },
+                footer: {
+                    desc: "Creating the visual future of the internet, one pixel at a time.",
+                    srvTitle: "Services",
+                    legalTitle: "Legal",
+                    srv1: "Web", srv2: "Video", srv3: "Design",
+                    leg1: "Privacy", leg2: "Terms",
+                    rights: "All rights reserved."
+                }
+            }
+        };
+
+        // --- ICONOS NATIVOS (SVG) ---
+        const Icon = ({ children, className = "w-6 h-6", ...props }) => (
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className} {...props}>
+                {children}
+            </svg>
+        );
+
+        const Zap = (p) => <Icon {...p}><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></Icon>;
+        const ArrowRight = (p) => <Icon {...p}><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></Icon>;
+        const ChevronLeft = (p) => <Icon {...p}><polyline points="15 18 9 12 15 6"></polyline></Icon>;
+        const Check = (p) => <Icon {...p}><polyline points="20 6 9 17 4 12"></polyline></Icon>;
+        const Play = (p) => <Icon {...p}><polygon points="5 3 19 12 5 21 5 3"></polygon></Icon>;
+        const Smartphone = (p) => <Icon {...p}><rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect><line x1="12" y1="18" x2="12.01" y2="18"></line></Icon>;
+        const MonitorPlay = (p) => <Icon {...p}><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line><polygon points="10 8 16 11 10 14 10 8"></polygon></Icon>;
+        const Video = (p) => <Icon {...p}><polygon points="23 7 16 12 23 17 23 7"></polygon><rect x="1" y="5" width="15" height="14" rx="2" ry="2"></rect></Icon>;
+        const ImageIcon = (p) => <Icon {...p}><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><circle cx="8.5" cy="8.5" r="1.5"></circle><polyline points="21 15 16 10 5 21"></polyline></Icon>;
+        const Layout = (p) => <Icon {...p}><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="3" y1="9" x2="21" y2="9"></line><line x1="9" y1="21" x2="9" y2="9"></line></Icon>;
+        const Code = (p) => <Icon {...p}><polyline points="16 18 22 12 16 6"></polyline><polyline points="8 6 2 12 8 18"></polyline></Icon>;
+        const TrendingUp = (p) => <Icon {...p}><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></Icon>;
+        const Twitch = (p) => <Icon {...p}><path d="M21 2H3v16h5v4l4-4h5l4-4V2zm-10 9V7m5 4V7"></path></Icon>;
+        const Briefcase = (p) => <Icon {...p}><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></Icon>;
+        const Crown = (p) => <Icon {...p}><path d="M2 4l3 12h14l3-12-6 7-4-7-4 7-6-7zm3 16h14"></path></Icon>;
+        const Sliders = (p) => <Icon {...p}><line x1="4" y1="21" x2="4" y2="14"></line><line x1="4" y1="10" x2="4" y2="3"></line><line x1="12" y1="21" x2="12" y2="12"></line><line x1="12" y1="8" x2="12" y2="3"></line><line x1="20" y1="21" x2="20" y2="16"></line><line x1="20" y1="12" x2="20" y2="3"></line><line x1="1" y1="14" x2="7" y2="14"></line><line x1="9" y1="8" x2="15" y2="8"></line><line x1="17" y1="16" x2="23" y2="16"></line></Icon>;
+        const Package = (p) => <Icon {...p}><line x1="16.5" y1="9.4" x2="7.5" y2="4.21"></line><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></Icon>;
+        const Palette = (p) => <Icon {...p}><circle cx="13.5" cy="6.5" r=".5"></circle><circle cx="17.5" cy="10.5" r=".5"></circle><circle cx="8.5" cy="7.5" r=".5"></circle><circle cx="6.5" cy="12.5" r=".5"></circle><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"></path></Icon>;
+        const Globe = (p) => <Icon {...p}><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></Icon>;
+        const Mail = (p) => <Icon {...p}><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></Icon>;
+        const Linkedin = (p) => <Icon {...p}><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></Icon>;
+        const X = (p) => <Icon {...p}><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></Icon>;
+        const Camera = (p) => <Icon {...p}><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></Icon>;
+        const MessageCircle = (p) => <Icon {...p}><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></Icon>;
+        const Layers = (p) => <Icon {...p}><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></Icon>;
+
+        // --- NAVEGACIÓN ---
+        const Navigation = () => {
+            const [scrolled, setScrolled] = useState(false);
+            const { lang, setLang, t } = useContext(LanguageContext);
+
+            useEffect(() => {
+                const handleScroll = () => setScrolled(window.scrollY > 50);
+                window.addEventListener('scroll', handleScroll);
+                return () => window.removeEventListener('scroll', handleScroll);
+            }, []);
+
+            return (
+                <nav className={`fixed w-full z-50 transition-all duration-300 ${scrolled ? 'bg-black/90 backdrop-blur-md border-b border-white/10' : 'bg-transparent'}`}>
+                    <div className="max-w-7xl mx-auto px-4 sm:px-6">
+                        <div className="flex justify-between h-20 items-center">
+                            <div className="flex items-center gap-2">
+                                <div className="w-7 h-7 sm:w-8 sm:h-8 bg-blue-600 rounded-lg flex items-center justify-center shadow-[0_0_15px_rgba(37,99,235,0.5)]">
+                                    <Zap className="text-white w-4 h-4 sm:w-5 sm:h-5" />
+                                </div>
+                                <span className="text-xl sm:text-2xl font-bold tracking-tighter text-white">
+                                    {t.nav.logo}<span className="text-blue-500">{t.nav.logoAccent}</span>
+                                </span>
+                            </div>
+                            
+                            {/* Selector de Idioma */}
+                            <div className="flex items-center bg-white/5 border border-white/10 rounded-full p-1">
+                                <button 
+                                    onClick={() => setLang('es')} 
+                                    className={`px-3 py-1 text-xs sm:text-sm font-bold rounded-full transition-all ${lang === 'es' ? 'bg-white text-black' : 'text-gray-400 hover:text-white'}`}
+                                >
+                                    ES
+                                </button>
+                                <button 
+                                    onClick={() => setLang('en')} 
+                                    className={`px-3 py-1 text-xs sm:text-sm font-bold rounded-full transition-all ${lang === 'en' ? 'bg-white text-black' : 'text-gray-400 hover:text-white'}`}
+                                >
+                                    EN
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+            );
+        };
+
+        // --- HERO SECTION ---
+        const HeroSection = () => {
+            const { t } = useContext(LanguageContext);
+            const [showServicesMenu, setShowServicesMenu] = useState(false);
+
+            return (
+                <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-[#050505] pt-20">
+                    <div className="absolute top-0 left-0 w-full h-full pointer-events-none">
+                        <div className="absolute top-[-20%] right-[-10%] w-[500px] h-[500px] md:w-[800px] md:h-[800px] bg-blue-600/20 rounded-full blur-[120px] animate-pulse"></div>
+                        <div className="absolute bottom-[-20%] left-[-10%] w-[400px] h-[400px] md:w-[600px] md:h-[600px] bg-purple-600/10 rounded-full blur-[100px]"></div>
+                    </div>
+                    
+                    <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10 text-center">
+                        <div className="inline-flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full bg-white/5 border border-white/10 text-blue-400 text-[10px] sm:text-xs font-bold tracking-widest uppercase mb-6 sm:mb-8 backdrop-blur-md">
+                            <span className="w-1.5 h-1.5 sm:w-2 sm:h-2 rounded-full bg-green-500 animate-pulse"></span>
+                            {t.hero.badge}
+                        </div>
+                        
+                        <h1 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-black text-white tracking-tight mb-6 sm:mb-8 leading-[1.1] md:leading-[0.9]">
+                            {t.hero.title1} <br className="hidden sm:block"/>
+                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-500 animate-gradient block mt-2 sm:mt-0">
+                                {t.hero.title2}
+                            </span>
+                        </h1>
+                        
+                        <p className="text-base sm:text-lg md:text-xl text-gray-400 max-w-2xl mx-auto mb-10 sm:mb-12 leading-relaxed px-2">
+                            {t.hero.desc}
+                        </p>
+                        
+                        <div className="flex justify-center">
+                            <div className="relative inline-block text-center w-full sm:w-auto">
+                                <button 
+                                    onClick={() => setShowServicesMenu(!showServicesMenu)}
+                                    className="flex items-center justify-center w-full sm:w-auto px-6 py-3 sm:px-8 sm:py-4 rounded-full font-bold text-white border border-white/20 bg-white/5 hover:bg-white/10 transition-all backdrop-blur-sm mx-auto"
+                                >
+                                    {t.hero.btnServices}
+                                </button>
+                                
+                                {showServicesMenu && (
+                                    <div className="absolute left-1/2 -translate-x-1/2 mt-4 w-64 rounded-2xl shadow-2xl bg-[#111] border border-white/10 p-4 z-50 animate-fade-in-up">
+                                        <h4 className="text-xs text-blue-500 font-bold uppercase tracking-widest mb-3 px-2">{t.hero.menuServicesTitle}</h4>
+                                        <ul className="space-y-1 text-left">
+                                            <li className="text-sm text-gray-300 hover:text-white cursor-pointer p-2 hover:bg-white/10 rounded-lg transition">{t.hero.menuItem1}</li>
+                                            <li className="text-sm text-gray-300 hover:text-white cursor-pointer p-2 hover:bg-white/10 rounded-lg transition">{t.hero.menuItem2}</li>
+                                            <li className="text-sm text-gray-300 hover:text-white cursor-pointer p-2 hover:bg-white/10 rounded-lg transition">{t.hero.menuItem3}</li>
+                                            <li className="text-sm text-gray-300 hover:text-white cursor-pointer p-2 hover:bg-white/10 rounded-lg transition">{t.hero.menuItem4}</li>
+                                        </ul>
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            );
+        };
+
+        // --- PHILOSOPHY SECTION ---
+        const PhilosophySection = () => {
+            const { t } = useContext(LanguageContext);
+            return (
+                <section className="py-16 md:py-20 bg-[#0a0a0a] border-b border-white/5">
+                    <div className="max-w-4xl mx-auto px-4 sm:px-6 text-center">
+                        <span className="text-blue-500 font-bold tracking-widest text-xs sm:text-sm uppercase mb-4 block">{t.philosophy.tag}</span>
+                        <h2 className="text-2xl sm:text-3xl md:text-5xl font-bold text-white mb-6 sm:mb-8 leading-tight">{t.philosophy.title}</h2>
+                        <p className="text-sm sm:text-base md:text-lg text-gray-400 leading-relaxed mb-8">{t.philosophy.desc}</p>
+                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-8 pt-8 border-t border-white/10">
+                            <div><h3 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-1 sm:mb-2">+50M</h3><p className="text-[10px] sm:text-xs text-gray-500 uppercase tracking-widest">{t.philosophy.views}</p></div>
+                            <div><h3 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-1 sm:mb-2">+100</h3><p className="text-[10px] sm:text-xs text-gray-500 uppercase tracking-widest">{t.philosophy.projects}</p></div>
+                            <div><h3 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-1 sm:mb-2">24h</h3><p className="text-[10px] sm:text-xs text-gray-500 uppercase tracking-widest">{t.philosophy.support}</p></div>
+                            <div><h3 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-1 sm:mb-2">100%</h3><p className="text-[10px] sm:text-xs text-gray-500 uppercase tracking-widest">{t.philosophy.retention}</p></div>
+                        </div>
+                    </div>
+                </section>
+            );
+        };
+
+        // --- SERVICES SECTION ---
+        const ServicesSection = () => {
+            const { t } = useContext(LanguageContext);
+            const icons = [ <Video />, <ImageIcon />, <Layout />, <Zap />, <Smartphone />, <Code /> ];
+            const colors = [ "text-blue-500", "text-purple-500", "text-green-500", "text-yellow-500", "text-pink-500", "text-orange-500" ];
+
+            return (
+                <section id="services" className="py-16 md:py-24 bg-[#0a0a0a]">
+                    <div className="max-w-7xl mx-auto px-4 sm:px-6">
+                        <div className="text-center mb-12 sm:mb-16">
+                            <span className="text-blue-500 font-bold tracking-widest text-xs sm:text-sm uppercase">{t.services.tag}</span>
+                            <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-white mt-2">{t.services.title}</h2>
+                        </div>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+                            {t.services.items.map((s, i) => (
+                                <div key={i} className="p-6 sm:p-8 rounded-2xl bg-white/5 border border-white/5 hover:bg-white/10 hover:border-white/20 transition-all group hover:-translate-y-1">
+                                    <div className={`w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-black flex items-center justify-center mb-4 sm:mb-6 ${colors[i]} shadow-lg shadow-current/20`}>
+                                        {icons[i]}
+                                    </div>
+                                    <h3 className="text-lg sm:text-xl font-bold text-white mb-2 sm:mb-3">{s.title}</h3>
+                                    <p className="text-gray-400 text-xs sm:text-sm leading-relaxed">{s.desc}</p>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </section>
+            );
+        };
+
+        // --- PRODUCCIÓN Y ESCALA ---
+        const ProductionCapabilities = () => {
+            const { t } = useContext(LanguageContext);
+            return (
+                <section className="py-16 md:py-24 bg-gradient-to-b from-[#0a0a0a] to-[#050505] border-t border-white/5 relative overflow-hidden">
+                    <div className="absolute top-0 right-0 w-[300px] h-[300px] md:w-[500px] md:h-[500px] bg-purple-600/10 rounded-full blur-[100px] md:blur-[120px] pointer-events-none"></div>
+                    <div className="absolute bottom-0 left-0 w-[300px] h-[300px] md:w-[500px] md:h-[500px] bg-blue-600/10 rounded-full blur-[100px] md:blur-[120px] pointer-events-none"></div>
+                    
+                    <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
+                        <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+                            <div>
+                                <span className="text-purple-500 font-bold tracking-widest text-xs sm:text-sm uppercase mb-3 sm:mb-4 block">{t.production.tag}</span>
+                                <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-white mb-4 sm:mb-6 leading-tight">
+                                    {t.production.title1} <br/><span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-blue-500">{t.production.title2}</span>
+                                </h2>
+                                <p className="text-gray-400 text-sm sm:text-base md:text-lg leading-relaxed mb-8">{t.production.desc}</p>
+                                
+                                <div className="space-y-6 sm:space-y-8">
+                                    <div className="flex items-start gap-3 sm:gap-4">
+                                        <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-blue-500/10 flex items-center justify-center text-blue-500 flex-shrink-0 border border-blue-500/20 shadow-lg"><Globe className="w-5 h-5 sm:w-6 sm:h-6" /></div>
+                                        <div><h4 className="text-base sm:text-xl font-bold text-white mb-1 sm:mb-2">{t.production.item1Title}</h4><p className="text-gray-500 text-xs sm:text-sm leading-relaxed">{t.production.item1Desc}</p></div>
+                                    </div>
+                                    <div className="flex items-start gap-3 sm:gap-4">
+                                        <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-purple-500/10 flex items-center justify-center text-purple-500 flex-shrink-0 border border-purple-500/20 shadow-lg"><Camera className="w-5 h-5 sm:w-6 sm:h-6" /></div>
+                                        <div><h4 className="text-base sm:text-xl font-bold text-white mb-1 sm:mb-2">{t.production.item2Title}</h4><p className="text-gray-500 text-xs sm:text-sm leading-relaxed">{t.production.item2Desc}</p></div>
+                                    </div>
+                                    <div className="flex items-start gap-3 sm:gap-4">
+                                        <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-yellow-500/10 flex items-center justify-center text-yellow-500 flex-shrink-0 border border-yellow-500/20 shadow-lg"><Briefcase className="w-5 h-5 sm:w-6 sm:h-6" /></div>
+                                        <div><h4 className="text-base sm:text-xl font-bold text-white mb-1 sm:mb-2">{t.production.item3Title}</h4><p className="text-gray-500 text-xs sm:text-sm leading-relaxed">{t.production.item3Desc}</p></div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div className="relative mt-8 lg:mt-0 w-full max-w-md mx-auto lg:max-w-none">
+                                <div className="absolute inset-0 bg-gradient-to-tr from-purple-600 to-blue-600 rounded-3xl blur-2xl opacity-20 animate-pulse"></div>
+                                <img src="https://images.unsplash.com/photo-1589998059171-988d887df646?auto=format&fit=crop&w=800&q=80" alt="Production" className="relative rounded-3xl border border-white/10 shadow-2xl object-cover h-[350px] sm:h-[450px] md:h-[650px] w-full filter brightness-75 hover:brightness-100 hover:scale-[1.02] transition-all duration-500" />
+                                <div className="absolute bottom-4 left-4 right-4 sm:bottom-6 sm:left-6 sm:right-6 bg-black/70 backdrop-blur-xl border border-white/10 p-3 sm:p-5 rounded-2xl flex items-center gap-3 sm:gap-4">
+                                    <div className="w-2 h-2 sm:w-3 sm:h-3 bg-red-500 rounded-full animate-pulse shadow-[0_0_10px_rgba(239,68,68,0.8)] flex-shrink-0"></div>
+                                    <span className="text-white font-bold tracking-widest text-[10px] sm:text-sm uppercase truncate">{t.production.overlay}</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            );
+        };
+
+        // --- VIDEO SHOWCASE ---
+        const VideoShowcase = () => {
+            const { t } = useContext(LanguageContext);
+            const [playingIndex, setPlayingIndex] = useState(null);
+            const [startIndex, setStartIndex] = useState(0);
+
+            const reels = [
+                { title: "Fitness & Motivación", views: "1.2M", image: "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=600&q=80", category: "Reel", videoUrl: "https://cdn.discordapp.com/attachments/1453109798034870317/1472686652949532806/YO_NO_PUEDO_PERDER_motivacion_eltemach_MARPE_ejercicgym_gymmotivation_aesthetic_frases_-_Fitfusion_1080p_h264.mp4?ex=69a49d53&is=69a34bd3&hm=0c2b3e9c071f020b6ce959baec532d97b00a3dfd5150768ec7a8120647cedb95&" },
+                { title: "Lifestyle Aesthetic", views: "2.5M", image: "https://images.unsplash.com/photo-1618331835717-801e976710b2?auto=format&fit=crop&w=600&q=80", category: "Short", videoUrl: "https://cdn.discordapp.com/attachments/1020791454852984863/1477401940945010800/Reel_1_futbol_sonrisas_subtitulado.mp4?ex=69a4a147&is=69a34fc7&hm=6b797c244e1440347bf819e5e6514dbac2d8adc814e4c27e60231a0eb2166b4f&" },
+                { title: "Food & Culinary", views: "500k", image: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=600&q=80", category: "Reel", videoUrl: "https://cdn.discordapp.com/attachments/1020791454852984863/1476983687168921822/FDownloader.Net_AQPcZ83jhkNVnv4zHDR5wTVZBUsNK1mQmGSzM5Frqpr2Is3o4_pQeWRifJnJNQ0waBKd9cmXhPoi8xEskE4cZ_rMF4TE23K_3JESogsZWJnNbg_720p_HD.mp4?ex=69a3c480&is=69a27300&hm=86fc4aab6e71667bdbfd965b3d5970f7fd6a34546991f089462e78a3a8b91b85&" },
+                { title: "Gaming Highlights", views: "3.1M", image: "https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=600&q=80", category: "Gaming", videoUrl: "https://cdn.discordapp.com/attachments/1020791454852984863/1477406042399969350/edicion_forzada.v2.mp4?ex=69a4a519&is=69a35399&hm=ebbeb73676b3641f9885dc32a349b1420e227ed91cf9832a176c1fde57bff5f3&" },
+                { title: "Corporate Business", views: "400k", image: "https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=600&q=80", category: "Empresarial", videoUrl: "https://cdn.discordapp.com/attachments/1020791454852984863/1477400841466937466/Video2.mp4?ex=69a4a041&is=69a34ec1&hm=4eae4dcce6f2c5f38334ff3c241e38b865576bdfcb4f34783372b59e39d10b5a&" },
+                { title: "Podcast Clips", views: "900k", image: "https://images.unsplash.com/photo-1590602847861-f357a9332bbc?auto=format&fit=crop&w=600&q=80", category: "Podcast", videoUrl: "https://cdn.discordapp.com/attachments/1020791454852984863/1477402805269696603/La_CLAVE_para_que_vean_tus_VIDEOS_podcast_luisitocomunica_emprendimiento_negocios_-_Como_funciona_tu_negocio_-_Juan_Lombana_1080p_h264.mp4?ex=69a4a215&is=69a35095&hm=65ae97421ab2edb1707c9857e9c7047372686c5978fade7b5c4f6254c7121ac8&" },
+                { title: "Luxury Real Estate", views: "1.5M", image: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=600&q=80", category: "Real Estate", videoUrl: "https://cdn.discordapp.com/attachments/1020791454852984863/1477401335606542436/3.1.mp4?ex=69a4a0b7&is=69a34f37&hm=dc747283b2f475d4f7f380f450ad4a86d47f6a2a7f47f240e60a14fa4d879064&" }
+            ];
+
+            const getVisibleReels = () => {
+                let visible = [];
+                // Determinar items a mostrar dependiendo de pantalla para no romper layout en movil
+                const showCount = window.innerWidth < 640 ? 1 : window.innerWidth < 768 ? 2 : 4; 
+                for (let i = 0; i < 4; i++) {
+                    visible.push(reels[(startIndex + i) % reels.length]);
+                }
+                return visible;
+            };
+
+            const nextSlide = () => { setStartIndex((prev) => (prev + 1) % reels.length); setPlayingIndex(null); };
+            const prevSlide = () => { setStartIndex((prev) => (prev - 1 + reels.length) % reels.length); setPlayingIndex(null); };
+
+            return (
+                <section id="showcase" className="py-16 md:py-32 bg-black relative">
+                    <div className="absolute top-0 right-0 w-full h-px bg-gradient-to-r from-transparent via-blue-900 to-transparent opacity-50"></div>
+                    <div className="max-w-7xl mx-auto px-4 sm:px-6">
+                        <div className="mb-12 md:mb-20 text-center md:text-left">
+                            <h2 className="text-3xl sm:text-4xl md:text-6xl font-black text-white mb-4 md:mb-6">{t.showcase.title1} <span className="text-blue-600">{t.showcase.title2}</span></h2>
+                            <p className="text-sm sm:text-base md:text-lg text-gray-400 max-w-2xl leading-relaxed mx-auto md:mx-0">{t.showcase.desc}</p>
+                        </div>
+                        <div className="mb-12 md:mb-24 relative">
+                            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 md:mb-8">
+                                <div className="flex items-center justify-center md:justify-start gap-3">
+                                    <div className="p-2 bg-white/10 rounded-lg hidden sm:block"><MonitorPlay className="text-blue-500 w-5 h-5 md:w-6 md:h-6" /></div>
+                                    <div className="text-center md:text-left">
+                                        <h3 className="text-xl md:text-2xl font-bold text-white flex items-center justify-center md:justify-start gap-3">{t.showcase.dynEdit}</h3>
+                                        <span className="inline-block mt-1 bg-blue-500/10 text-blue-400 text-[10px] md:text-xs px-2 py-1 rounded border border-blue-500/20">{t.showcase.subtitle}</span>
+                                    </div>
+                                </div>
+                                <div className="flex gap-2 justify-center md:justify-end">
+                                    <button onClick={prevSlide} className="p-2 md:p-3 bg-white/10 hover:bg-white/20 rounded-full transition-colors text-white"><ChevronLeft className="w-4 h-4 md:w-5 md:h-5" /></button>
+                                    <button onClick={nextSlide} className="p-2 md:p-3 bg-white/10 hover:bg-white/20 rounded-full transition-colors text-white"><ArrowRight className="w-4 h-4 md:w-5 md:h-5" /></button>
+                                </div>
+                            </div>
+
+                            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
+                                {getVisibleReels().map((reel, i) => (
+                                    <div key={i} onClick={() => reel.videoUrl ? setPlayingIndex(i) : null} className={`group relative aspect-[9/16] rounded-2xl overflow-hidden cursor-pointer border border-white/10 hover:border-blue-500/50 transition-all duration-500 bg-[#0a0a0a] ${i > 0 && 'hidden sm:block'} ${i > 1 && 'sm:hidden md:block'}`}>
+                                        {playingIndex === i && reel.videoUrl ? (
+                                            <video src={reel.videoUrl} className="w-full h-full absolute inset-0 object-contain z-20 bg-black" controls autoPlay playsInline controlsList="nodownload" preload="none"></video>
+                                        ) : (
+                                            <>
+                                                <img src={reel.image} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 filter brightness-75 group-hover:brightness-100" />
+                                                <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-90"></div>
+                                                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                                    <div className="w-10 h-10 md:w-12 md:h-12 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center"><Play className="w-4 h-4 md:w-5 md:h-5 text-white fill-white" /></div>
+                                                </div>
+                                            </>
+                                        )}
+                                        <div className={`absolute bottom-0 left-0 p-3 md:p-4 w-full z-10 pointer-events-none ${playingIndex === i ? 'hidden' : 'block'}`}>
+                                            <span className="text-[10px] md:text-xs font-bold text-blue-400 uppercase tracking-wider mb-1 block drop-shadow-md">{reel.category}</span>
+                                            <h4 className="text-sm md:text-base text-white font-bold leading-tight mb-1 md:mb-2 drop-shadow-md">{reel.title}</h4>
+                                            <div className="flex items-center gap-1 text-[10px] md:text-xs text-gray-300 drop-shadow-md"><TrendingUp className="w-2 h-2 md:w-3 md:h-3" /> {reel.views}</div>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            );
+        };
+
+        // --- PAQUETES & CONFIGURADOR ---
+        const PackagesSection = () => {
+            const { t } = useContext(LanguageContext);
+            const [selectedPkg, setSelectedPkg] = useState(null);
+            const [mode, setMode] = useState('tiers');
+            
+            const [editingStyle, setEditingStyle] = useState('basic'); 
+
+            const [activeServices, setActiveServices] = useState({ reels: false, thumbs: false, videos: false, design: false });
+            const [config, setConfig] = useState({ reels: 10, thumbs: 2, videos: 1, design: 5 });
+
+            const data = {
+                reels: {
+                    ...t.packages.data.reels,
+                    icon: <Smartphone className="w-6 h-6 md:w-8 md:h-8 text-white" />,
+                    color: "bg-blue-600",
+                    accent: "text-blue-500"
+                },
+                youtube: {
+                    ...t.packages.data.youtube,
+                    icon: <MonitorPlay className="w-6 h-6 md:w-8 md:h-8 text-white" />,
+                    color: "bg-red-600",
+                    accent: "text-red-500"
+                },
+                mixed: {
+                    ...t.packages.data.mixed,
+                    icon: <Layers className="w-6 h-6 md:w-8 md:h-8 text-white" />,
+                    color: "bg-purple-600",
+                    accent: "text-purple-500"
+                }
+            };
+
+            const handleCardClick = (k) => {
+                setSelectedPkg(k); 
+                setMode('tiers'); 
+                setEditingStyle('basic'); 
+                
+                let defaults = { reels: false, thumbs: false, videos: false, design: false };
+                if (k === 'reels') defaults.reels = true;
+                if (k === 'youtube') { defaults.videos = true; defaults.thumbs = true; }
+                if (k === 'mixed') { defaults.reels = true; defaults.videos = true; defaults.thumbs = true; defaults.design = true; }
+                setActiveServices(defaults);
+            };
+
+            // Lógica Centralizada de Precios (Igual para Paquetes y Cotizador Libre)
+            const getPrice = (service, style) => {
+                if (service === 'reels') {
+                    if (style === 'basic') return 200;
+                    if (style === 'semi') return 350;
+                    if (style === 'dynamic') return 550;
+                }
+                const bases = { thumbs: 250, videos: 1500, design: 300 };
+                const multipliers = { basic: 1, semi: 1.25, dynamic: 1.5 };
+                return bases[service] * multipliers[style];
+            };
+
+            const calculateTierPrice = (items) => {
+                return (items.reels * getPrice('reels', editingStyle)) +
+                       (items.thumbs * getPrice('thumbs', editingStyle)) +
+                       (items.videos * getPrice('videos', editingStyle)) +
+                       (items.design * getPrice('design', editingStyle));
+            };
+
+            const calcTotal = () => {
+                let total = 0;
+                if(activeServices.reels) total += config.reels * getPrice('reels', editingStyle);
+                if(activeServices.thumbs) total += config.thumbs * getPrice('thumbs', editingStyle);
+                if(activeServices.videos) total += config.videos * getPrice('videos', editingStyle);
+                if(activeServices.design) total += config.design * getPrice('design', editingStyle);
+                return total;
+            };
+
+            const toggleService = (service) => {
+                setActiveServices(prev => ({...prev, [service]: !prev[service]}));
+            };
+
+            const handleWhatsApp = (tierName = null) => {
+                const styleName = editingStyle === 'basic' ? t.packages.styleBasic : (editingStyle === 'semi' ? t.packages.styleSemi : t.packages.styleDyn);
+                const pkgTitle = data[selectedPkg].title;
+                let text = "";
+
+                if (typeof tierName === 'string') {
+                    const tierObj = data[selectedPkg].tiers.find(t => t.name === tierName);
+                    const total = calculateTierPrice(tierObj.items).toLocaleString('es-MX');
+                    text = `${t.packages.whatsappMsg} "${pkgTitle}" (Nivel: ${tierName}). Estilo de edición: ${styleName}. Total estimado: $${total} ${t.packages.currency}. ¿Podemos agendar?`;
+                } else {
+                    const total = calcTotal().toLocaleString('es-MX');
+                    text = `${t.packages.whatsappMsg} "${pkgTitle}" (A la medida). Estilo de edición: ${styleName}. ${t.packages.estimated}: $${total} ${t.packages.currency}. Mis servicios activos son: ${activeServices.reels ? config.reels+' Reels, ' : ''}${activeServices.thumbs ? config.thumbs+' Miniaturas, ' : ''}${activeServices.videos ? config.videos+' Videos, ' : ''}${activeServices.design ? config.design+' Diseños' : ''}. ¿Podemos agendar?`;
+                }
+                
+                window.open(`https://wa.me/5211234567890?text=${encodeURIComponent(text)}`, '_blank');
+            };
+
+            return (
+                <section id="packages" className="py-16 md:py-32 bg-[#050505]">
+                    <div className="max-w-7xl mx-auto px-4 sm:px-6">
+                        <div className="text-center mb-12 md:mb-20">
+                            <h2 className="text-3xl sm:text-4xl md:text-6xl font-black text-white mb-2 md:mb-4">{t.packages.title1} <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-blue-500">{t.packages.title2}</span></h2>
+                            <p className="text-sm md:text-base text-gray-400">{t.packages.desc}</p>
+                        </div>
+
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
+                            {Object.entries(data).map(([k, p]) => (
+                                <div key={k} onClick={() => handleCardClick(k)} className="group cursor-pointer relative bg-white/5 rounded-3xl border border-white/10 hover:border-white/30 transition-all hover:-translate-y-1 md:hover:-translate-y-2 overflow-hidden">
+                                    <div className={`absolute top-0 w-full h-1 ${p.color}`}></div>
+                                    <div className="p-6 md:p-8 flex flex-col items-center text-center h-full">
+                                        <div className={`w-12 h-12 md:w-16 md:h-16 rounded-2xl flex items-center justify-center mb-4 md:mb-6 shadow-lg ${p.color}`}>{p.icon}</div>
+                                        <h3 className="text-xl md:text-2xl font-bold text-white mb-2">{p.title}</h3>
+                                        <p className="text-gray-400 mb-6 md:mb-8 text-xs md:text-sm">{p.desc}</p>
+                                        <button className="mt-auto w-full md:w-auto px-6 py-2 rounded-full bg-white/10 text-white text-xs md:text-sm font-bold group-hover:bg-white group-hover:text-black transition-all">{t.packages.btnViewTiers}</button>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* MODAL */}
+                    {selectedPkg && (
+                        <div className="fixed inset-0 z-[100] flex items-center justify-center p-2 sm:p-4">
+                            <div className="absolute inset-0 bg-black/80 backdrop-blur-md" onClick={() => setSelectedPkg(null)}></div>
+                            <div className="bg-[#111] rounded-2xl md:rounded-3xl w-full max-w-5xl max-h-[95vh] overflow-y-auto relative z-10 border border-white/10 flex flex-col shadow-2xl">
+                                
+                                <div className={`p-5 md:p-8 ${data[selectedPkg].color} relative overflow-hidden flex-shrink-0`}>
+                                    <button onClick={() => setSelectedPkg(null)} className="absolute top-4 right-4 md:top-6 md:right-6 p-2 bg-black/20 hover:bg-black/40 rounded-full text-white z-50 cursor-pointer hover:scale-110 transition-all"><X className="w-4 h-4 md:w-6 md:h-6" /></button>
+                                    <div className="relative z-10 flex flex-col sm:flex-row items-center sm:items-start gap-4 md:gap-6 text-center sm:text-left">
+                                        <div className="p-3 md:p-4 bg-white/20 backdrop-blur-md rounded-xl md:rounded-2xl">{data[selectedPkg].icon}</div>
+                                        <div className="w-full">
+                                            <h3 className="text-2xl md:text-3xl font-bold text-white mb-1 md:mb-0">{data[selectedPkg].title}</h3>
+                                            
+                                            <div className="flex flex-col sm:flex-row mt-3 md:mt-4 bg-black/30 p-1 rounded-xl w-full sm:w-fit mx-auto sm:mx-0">
+                                                <button onClick={() => setMode('tiers')} className={`px-4 py-2 rounded-lg text-xs md:text-sm font-bold flex justify-center items-center gap-2 ${mode === 'tiers' ? 'bg-white text-black' : 'text-white/70 hover:text-white'}`}><Package className="w-3 h-3 md:w-4 md:h-4" /> {t.packages.tabTiers}</button>
+                                                <button onClick={() => setMode('custom')} className={`px-4 py-2 rounded-lg text-xs md:text-sm font-bold flex justify-center items-center gap-2 ${mode === 'custom' ? 'bg-white text-black' : 'text-white/70 hover:text-white'}`}><Sliders className="w-3 h-3 md:w-4 md:h-4" /> {t.packages.tabCustom}</button>
+                                            </div>
+
+                                            {/* Selector de Estilo de Edición */}
+                                            <div className="mt-4 md:mt-5 pt-4 md:pt-5 border-t border-white/10 w-full">
+                                                <label className="text-[10px] md:text-xs font-bold text-white/60 uppercase tracking-widest mb-2 block text-center sm:text-left">{t.packages.styleLabel}</label>
+                                                <div className="flex flex-wrap justify-center sm:justify-start gap-2">
+                                                    <button onClick={() => setEditingStyle('basic')} className={`px-3 md:px-4 py-1.5 md:py-2 rounded-lg text-[10px] md:text-xs font-bold transition-all ${editingStyle === 'basic' ? 'bg-white text-black shadow-lg' : 'bg-black/30 text-white/70 hover:bg-white/10 hover:text-white'}`}>{t.packages.styleBasic}</button>
+                                                    <button onClick={() => setEditingStyle('semi')} className={`px-3 md:px-4 py-1.5 md:py-2 rounded-lg text-[10px] md:text-xs font-bold transition-all ${editingStyle === 'semi' ? 'bg-white text-black shadow-lg' : 'bg-black/30 text-white/70 hover:bg-white/10 hover:text-white'}`}>{t.packages.styleSemi}</button>
+                                                    <button onClick={() => setEditingStyle('dynamic')} className={`px-3 md:px-4 py-1.5 md:py-2 rounded-lg text-[10px] md:text-xs font-bold transition-all ${editingStyle === 'dynamic' ? 'bg-white text-black shadow-lg' : 'bg-black/30 text-white/70 hover:bg-white/10 hover:text-white'}`}>{t.packages.styleDyn}</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className="p-5 md:p-8 bg-[#111] flex-grow">
+                                    {mode === 'tiers' ? (
+                                        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
+                                            {data[selectedPkg].tiers.map((tier, i) => (
+                                                <div key={i} className="bg-white/5 p-5 md:p-6 rounded-xl md:rounded-2xl border border-white/5 hover:border-white/20 transition-all flex flex-col">
+                                                    <span className={`text-[10px] md:text-xs font-bold uppercase tracking-widest ${data[selectedPkg].accent}`}>Nivel {i+1}</span>
+                                                    <h4 className="text-xl md:text-2xl font-bold text-white mt-1 md:mt-2">{tier.name}</h4>
+                                                    <div className="text-xl md:text-3xl font-bold text-white mt-1 md:mt-2 mb-4 md:mb-6">
+                                                        ${calculateTierPrice(tier.items).toLocaleString('es-MX')} <span className="text-sm text-gray-400 font-normal">{t.packages.currency}</span>
+                                                    </div>
+                                                    <ul className="space-y-2 md:space-y-3 mb-6 md:mb-8 flex-grow">
+                                                        {tier.feats.map((f, j) => (
+                                                            <li key={j} className="flex gap-2 text-xs md:text-sm text-gray-400"><Check className={`w-3 h-3 md:w-4 md:h-4 flex-shrink-0 ${data[selectedPkg].accent}`} /> <span>{f}</span></li>
+                                                        ))}
+                                                    </ul>
+                                                    <button onClick={() => handleWhatsApp(tier.name)} className={`w-full py-3 rounded-xl font-bold text-white text-sm md:text-base ${data[selectedPkg].color} hover:opacity-90 transition-opacity`}>Elegir {tier.name}</button>
+                                                </div>
+                                            ))}
+                                            <div className="col-span-1 md:col-span-3 text-center mt-2 md:mt-4">
+                                                <p className="text-[10px] md:text-xs text-gray-500 uppercase tracking-widest">{t.packages.paymentNote}</p>
+                                            </div>
+                                        </div>
+                                    ) : (
+                                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12">
+                                            <div className="space-y-6 md:space-y-8">
+                                                <div>
+                                                    <h4 className="text-lg md:text-xl font-bold text-white mb-3 md:mb-4">{t.packages.step1}</h4>
+                                                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                                                        {[
+                                                            { id: 'reels', icon: <Smartphone className="w-4 h-4 md:w-5 md:h-5"/>, label: t.packages.customLabels.reels },
+                                                            { id: 'thumbs', icon: <ImageIcon className="w-4 h-4 md:w-5 md:h-5"/>, label: t.packages.customLabels.thumbs },
+                                                            { id: 'videos', icon: <Video className="w-4 h-4 md:w-5 md:h-5"/>, label: t.packages.customLabels.videos },
+                                                            { id: 'design', icon: <Palette className="w-4 h-4 md:w-5 md:h-5"/>, label: t.packages.customLabels.design }
+                                                        ].map((s) => (
+                                                            <button key={s.id} onClick={() => toggleService(s.id)} 
+                                                                className={`p-3 rounded-xl border flex items-center gap-3 transition-all ${activeServices[s.id] ? `border-white bg-white text-black` : 'border-white/10 bg-white/5 text-gray-400 hover:bg-white/10'}`}>
+                                                                {s.icon} <span className="font-bold text-xs md:text-sm">{s.label}</span>
+                                                            </button>
+                                                        ))}
+                                                    </div>
+                                                </div>
+                                                
+                                                <div className="space-y-4 md:space-y-6">
+                                                    <h4 className="text-lg md:text-xl font-bold text-white">{t.packages.step2}</h4>
+                                                    {!Object.values(activeServices).some(Boolean) && <div className="text-gray-500 text-xs md:text-sm border border-dashed border-gray-700 p-4 rounded-xl text-center">{t.packages.selectService}</div>}
+                                                    
+                                                    {activeServices.reels && <div><div className="flex justify-between text-white text-xs md:text-sm font-bold mb-2"><span>{t.packages.customLabels.reels}</span><span>{config.reels}</span></div><input type="range" min="1" max="30" value={config.reels} onChange={e=>setConfig({...config, reels: parseInt(e.target.value)})} className="w-full accent-white" /></div>}
+                                                    {activeServices.thumbs && <div><div className="flex justify-between text-white text-xs md:text-sm font-bold mb-2"><span>{t.packages.customLabels.thumbs}</span><span>{config.thumbs}</span></div><input type="range" min="1" max="20" value={config.thumbs} onChange={e=>setConfig({...config, thumbs: parseInt(e.target.value)})} className="w-full accent-white" /></div>}
+                                                    {activeServices.videos && <div><div className="flex justify-between text-white text-xs md:text-sm font-bold mb-2"><span>{t.packages.customLabels.videos}</span><span>{config.videos}</span></div><input type="range" min="1" max="10" value={config.videos} onChange={e=>setConfig({...config, videos: parseInt(e.target.value)})} className="w-full accent-white" /></div>}
+                                                    {activeServices.design && <div><div className="flex justify-between text-white text-xs md:text-sm font-bold mb-2"><span>{t.packages.customLabels.design}</span><span>{config.design}</span></div><input type="range" min="1" max="20" value={config.design} onChange={e=>setConfig({...config, design: parseInt(e.target.value)})} className="w-full accent-white" /></div>}
+                                                </div>
+                                            </div>
+
+                                            <div className="bg-[#050505] rounded-xl md:rounded-2xl p-5 md:p-8 border border-white/10 flex flex-col justify-between">
+                                                <div>
+                                                    <h4 className="text-gray-400 uppercase tracking-widest text-[10px] md:text-sm font-bold mb-4 md:mb-6">{t.packages.summary}</h4>
+                                                    <ul className="space-y-3 md:space-y-4 text-xs md:text-sm text-gray-300">
+                                                        {activeServices.reels && <li className="flex justify-between"><span>{config.reels} x {t.packages.customLabels.reels}</span><span>${(config.reels * getPrice('reels', editingStyle)).toLocaleString('es-MX')}</span></li>}
+                                                        {activeServices.thumbs && <li className="flex justify-between"><span>{config.thumbs} x {t.packages.customLabels.thumbs}</span><span>${(config.thumbs * getPrice('thumbs', editingStyle)).toLocaleString('es-MX')}</span></li>}
+                                                        {activeServices.videos && <li className="flex justify-between"><span>{config.videos} x {t.packages.customLabels.videos}</span><span>${(config.videos * getPrice('videos', editingStyle)).toLocaleString('es-MX')}</span></li>}
+                                                        {activeServices.design && <li className="flex justify-between"><span>{config.design} x {t.packages.customLabels.design}</span><span>${(config.design * getPrice('design', editingStyle)).toLocaleString('es-MX')}</span></li>}
+                                                    </ul>
+                                                </div>
+                                                <div className="mt-6 md:mt-8 pt-4 md:pt-6 border-t border-white/10">
+                                                    <div className="flex justify-between items-end mb-4 md:mb-6">
+                                                        <span className="text-gray-400 text-xs md:text-sm">{t.packages.estimated}</span>
+                                                        <span className="text-2xl md:text-4xl font-bold text-white">${calcTotal().toLocaleString('es-MX')} {t.packages.currency}</span>
+                                                    </div>
+                                                    <button onClick={handleWhatsApp} className="w-full bg-[#25D366] text-white py-3 md:py-4 rounded-xl font-bold hover:bg-[#1ebd5a] transition-colors flex items-center justify-center gap-2 text-sm md:text-base shadow-lg shadow-[#25D366]/20">
+                                                        <MessageCircle className="w-4 h-4 md:w-5 md:h-5" /> {t.packages.btnConfirm}
+                                                    </button>
+                                                    <p className="text-center text-[9px] md:text-xs text-gray-500 mt-3 md:mt-4 uppercase tracking-widest">{t.packages.paymentNote}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
+                        </div>
+                    )}
+                </section>
+            );
+        };
+
+        // --- TEAM SECTION ---
+        const TeamSection = () => {
+            const { t } = useContext(LanguageContext);
+            return (
+                <section className="py-16 md:py-32 bg-[#050505] border-t border-white/10 relative overflow-hidden">
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] md:w-[600px] md:h-[600px] bg-blue-900/10 rounded-full blur-[80px] md:blur-[120px]"></div>
+
+                    <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
+                        <div className="text-center mb-12 md:mb-20">
+                            <span className="text-blue-500 font-bold tracking-widest text-xs md:text-sm uppercase">{t.team.tag}</span>
+                            <h2 className="text-3xl sm:text-4xl md:text-6xl font-black text-white mt-2">{t.team.title}</h2>
+                        </div>
+
+                        <div className="flex justify-center max-w-5xl mx-auto">
+                            <div className="group relative w-full max-w-sm md:max-w-lg">
+                                <div className="absolute -inset-1 bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl md:rounded-3xl blur opacity-20 group-hover:opacity-60 transition duration-500"></div>
+                                <div className="relative bg-[#0a0a0a] border border-white/10 p-6 md:p-10 rounded-2xl md:rounded-3xl text-center transform group-hover:-translate-y-1 md:group-hover:-translate-y-2 transition duration-500 h-full flex flex-col items-center">
+                                    <div className="w-32 h-32 md:w-48 md:h-48 mx-auto rounded-full p-1 bg-gradient-to-br from-blue-500 to-purple-600 mb-6 md:mb-8 shadow-xl shadow-blue-900/20">
+                                        <img 
+                                            src="https://media.discordapp.net/attachments/1020791454852984863/1464075922465493013/unnamed_1.jpg?ex=6991d035&is=69907eb5&hm=58109d2e9ce555d34d5641ea48e086e7ffed02c90768c2cd2978d03517f4a67e&=&format=webp&width=800&height=800" 
+                                            alt="Andres David" 
+                                            className="w-full h-full object-cover rounded-full border-2 md:border-4 border-[#0a0a0a]" 
+                                        />
+                                    </div>
+                                    <h3 className="text-2xl md:text-3xl font-bold text-white mb-2">Andres David</h3>
+                                    <div className="inline-flex items-center gap-1.5 md:gap-2 px-3 py-1 md:px-4 md:py-1.5 rounded-full bg-blue-500/10 text-blue-400 text-[10px] md:text-xs font-bold uppercase tracking-wider mb-4 md:mb-6 border border-blue-500/20">
+                                        <Crown className="w-3 h-3" /> {t.team.role}
+                                    </div>
+                                    <p className="text-gray-400 text-sm md:text-base leading-relaxed mb-6 md:mb-8 flex-grow">
+                                        {t.team.desc}
+                                    </p>
+                                    <div className="flex justify-center gap-3 md:gap-4 mt-auto">
+                                        <a href="#" className="p-2 md:p-3 bg-white/5 rounded-xl hover:bg-blue-600 hover:text-white transition-all hover:scale-110 text-gray-400"><Linkedin className="w-4 h-4 md:w-5 md:h-5"/></a>
+                                        <a href="#" className="p-2 md:p-3 bg-white/5 rounded-xl hover:bg-blue-600 hover:text-white transition-all hover:scale-110 text-gray-400"><Mail className="w-4 h-4 md:w-5 md:h-5"/></a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            );
+        };
+
+        // --- FOOTER ---
+        const Footer = () => {
+            const { t } = useContext(LanguageContext);
+            return (
+                <footer className="bg-black text-white pt-16 md:pt-20 pb-8 md:pb-10 border-t border-white/10">
+                    <div className="max-w-7xl mx-auto px-4 sm:px-6 text-center md:text-left">
+                        <div className="grid md:grid-cols-4 gap-8 md:gap-12 mb-12 md:mb-16">
+                            <div className="col-span-1 md:col-span-2">
+                                <span className="text-2xl font-bold">{t.nav.logo}<span className="text-blue-600">{t.nav.logoAccent}</span></span>
+                                <p className="text-gray-500 mt-4 max-w-sm mx-auto md:mx-0 text-sm md:text-base">{t.footer.desc}</p>
+                            </div>
+                            <div>
+                                <h4 className="font-bold mb-4">{t.footer.srvTitle}</h4>
+                                <ul className="space-y-2 text-gray-500 text-sm">
+                                    <li><a href="#" className="hover:text-white">{t.footer.srv1}</a></li>
+                                    <li><a href="#" className="hover:text-white">{t.footer.srv2}</a></li>
+                                    <li><a href="#" className="hover:text-white">{t.footer.srv3}</a></li>
+                                </ul>
+                            </div>
+                            <div>
+                                <h4 className="font-bold mb-4">{t.footer.legalTitle}</h4>
+                                <ul className="space-y-2 text-gray-500 text-sm">
+                                    <li><a href="#" className="hover:text-white">{t.footer.leg1}</a></li>
+                                    <li><a href="#" className="hover:text-white">{t.footer.leg2}</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div className="border-t border-white/10 pt-6 md:pt-8 text-center text-gray-600 text-xs md:text-sm">
+                            &copy; 2026 NovaDigital. {t.footer.rights}
+                        </div>
+                    </div>
+                </footer>
+            );
+        };
+
+        // --- APP MAIN ---
+        const App = () => {
+            const [lang, setLang] = useState('es');
+            const t = translations[lang];
+
+            return (
+                <LanguageContext.Provider value={{ lang, setLang, t }}>
+                    <div className="min-h-screen font-sans selection:bg-blue-500 selection:text-white">
+                        <Navigation />
+                        <main>
+                            <HeroSection />
+                            <PhilosophySection />
+                            <ServicesSection />
+                            <ProductionCapabilities />
+                            <VideoShowcase />
+                            <PackagesSection />
+                            <TeamSection />
+                        </main>
+                        <Footer />
+                    </div>
+                </LanguageContext.Provider>
+            );
+        };
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>
