@@ -78,11 +78,16 @@
                     title2: "CAOS VISUAL",
                     desc: "Agencia de Edición High-End, Desarrollo Web y Estrategia. Transformamos marcas aburridas en referentes digitales.",
                     btnServices: "NUESTROS SERVICIOS",
-                    menuServicesTitle: "Servicios Especializados",
-                    menuItem1: "Consultoría Estratégica 1:1",
-                    menuItem2: "Auditoría de Canal / SEO",
-                    menuItem3: "Gestión de Pauta (Ads)",
-                    menuItem4: "Creación de Embudos (Funnels)"
+                    modalTitle: "Soluciones Estratégicas",
+                    modalDesc: "Servicios ejecutivos para escalar tu autoridad y facturación, más allá de la edición.",
+                    strat1Title: "Consultoría Directiva 1:1",
+                    strat1Desc: "Sesiones privadas para trazar la ruta exacta de tu crecimiento y posicionamiento.",
+                    strat2Title: "Auditoría Algorítmica",
+                    strat2Desc: "Análisis profundo de métricas, retención y optimización de contenido actual.",
+                    strat3Title: "Media Buying & Ads",
+                    strat3Desc: "Gestión avanzada de presupuestos publicitarios en Meta, TikTok y Google.",
+                    strat4Title: "Dirección de Lanzamientos",
+                    strat4Desc: "Arquitectura y ejecución estratégica para lanzar ofertas High-Ticket al mercado."
                 },
                 philosophy: {
                     tag: "Nuestra Filosofía",
@@ -126,9 +131,9 @@
                     dynEdit: "Edición Dinámica"
                 },
                 packages: {
-                    title1: "PAQUETES",
-                    title2: "EXCLUSIVOS",
-                    desc: "Selecciona tu formato para ver los paquetes adaptados a ti.",
+                    title1: "NUESTROS",
+                    title2: "SECTORES",
+                    desc: "Selecciona tu sector para ver los paquetes adaptados a tus necesidades exactas.",
                     btnViewTiers: "VER NIVELES",
                     tabTiers: "Packs",
                     tabCustom: "A la medida",
@@ -140,6 +145,7 @@
                     step2: "2. Cantidad",
                     selectService: "Selecciona un servicio arriba para ajustar la cantidad",
                     summary: "RESUMEN MENSUAL",
+                    baseFee: "Tarifa de Gestión",
                     estimated: "Inversión Estimada",
                     btnConfirm: "Contratar por WhatsApp",
                     paymentNote: "Aceptamos pagos seguros exclusivamente vía Stripe y PayPal.",
@@ -163,13 +169,40 @@
                                 { name: "Autoridad", items: { reels: 0, thumbs: 8, videos: 8, design: 0 }, feats: ["8 Videos Largos", "8 Miniaturas Pro", "Retención Masterclass"] }
                             ]
                         },
+                        streamer: {
+                            title: "Streamers & Gaming",
+                            desc: "Domina Twitch y Kick sacando los mejores momentos.",
+                            tiers: [
+                                { name: "Novato", items: { reels: 10, thumbs: 2, videos: 1, design: 0 }, feats: ["10 Clips Verticales", "1 Resumen YT", "2 Miniaturas Pro"] },
+                                { name: "Afiliado", items: { reels: 20, thumbs: 4, videos: 2, design: 0 }, feats: ["20 Clips Verticales", "2 Resúmenes YT", "4 Miniaturas Pro"] },
+                                { name: "Partner", items: { reels: 30, thumbs: 8, videos: 4, design: 0 }, feats: ["30 Clips Verticales", "4 Resúmenes YT", "8 Miniaturas Pro"] }
+                            ]
+                        },
+                        empresarial: {
+                            title: "Marcas & Redes Sociales",
+                            desc: "Manejo de Facebook, IG y autoridad digital para negocios.",
+                            tiers: [
+                                { name: "Local", items: { reels: 8, thumbs: 0, videos: 0, design: 12 }, feats: ["Gestión de Redes Básica", "8 Reels Corporativos", "12 Diseños (Posts/Stories)", "Ideal para negocios locales"] },
+                                { name: "Nacional", items: { reels: 15, thumbs: 0, videos: 0, design: 20 }, feats: ["Gestión de Redes Avanzada", "15 Reels Corporativos", "20 Diseños (Posts/Stories)", "Campañas Ads Básicas"] },
+                                { name: "Corporativo", items: { reels: 30, thumbs: 0, videos: 2, design: 30 }, feats: ["Dominio Total Redes", "30 Reels Cortos", "2 Videos Largos / VSL", "30 Diseños y Gestión"] }
+                            ]
+                        },
+                        podcast: {
+                            title: "Podcasts & Entrevistas",
+                            desc: "Lleva tu programa al siguiente nivel con multi-cámara.",
+                            tiers: [
+                                { name: "Básico", items: { reels: 5, thumbs: 1, videos: 1, design: 0 }, feats: ["1 Episodio Completo", "5 Clips Destacados", "1 Miniatura Pro"] },
+                                { name: "Frecuente", items: { reels: 15, thumbs: 4, videos: 4, design: 0 }, feats: ["4 Episodios Completos", "15 Clips Destacados", "4 Miniaturas Pro"] },
+                                { name: "Dominio", items: { reels: 30, thumbs: 8, videos: 8, design: 0 }, feats: ["8 Episodios Completos", "30 Clips Destacados", "8 Miniaturas Pro"] }
+                            ]
+                        },
                         mixed: {
                             title: "Ecosistema Mixto",
                             desc: "Dominio omnicanal. Todo lo que necesitas en un solo lugar.",
                             tiers: [
-                                { name: "Novato", items: { reels: 15, thumbs: 3, videos: 1, design: 0 }, feats: ["15 Reels / Shorts", "3 Miniaturas", "1 Video Largo"] },
-                                { name: "Pro", items: { reels: 20, thumbs: 4, videos: 4, design: 0 }, feats: ["20 Reels / Shorts", "4 Miniaturas", "4 Videos Largos"] },
-                                { name: "Elite", items: { reels: 30, thumbs: 8, videos: 8, design: 0 }, feats: ["30 Reels / Shorts", "8 Miniaturas", "8 Videos Largos", "Asignación VIP"] }
+                                { name: "Esencial", items: { reels: 15, thumbs: 3, videos: 1, design: 2 }, feats: ["15 Reels / Shorts", "3 Miniaturas", "1 Video Largo", "2 Diseños Post"] },
+                                { name: "Pro", items: { reels: 20, thumbs: 4, videos: 4, design: 4 }, feats: ["20 Reels / Shorts", "4 Miniaturas", "4 Videos Largos", "4 Diseños Post"] },
+                                { name: "Elite", items: { reels: 30, thumbs: 8, videos: 8, design: 8 }, feats: ["30 Reels / Shorts", "8 Miniaturas", "8 Videos Largos", "8 Diseños Post"] }
                             ]
                         }
                     },
@@ -199,11 +232,16 @@
                     title2: "VISUAL CHAOS",
                     desc: "High-End Editing, Web Development & Strategy Agency. We transform boring brands into digital benchmarks.",
                     btnServices: "OUR SERVICES",
-                    menuServicesTitle: "Specialized Services",
-                    menuItem1: "1:1 Strategic Consulting",
-                    menuItem2: "Channel Audit / SEO",
-                    menuItem3: "Paid Ads Management",
-                    menuItem4: "Sales Funnels Creation"
+                    modalTitle: "Strategic Solutions",
+                    modalDesc: "Executive services to scale your authority and revenue, beyond just editing.",
+                    strat1Title: "1:1 Executive Consulting",
+                    strat1Desc: "Private sessions to map out the exact route for your growth and positioning.",
+                    strat2Title: "Algorithmic Audit",
+                    strat2Desc: "Deep analysis of metrics, retention, and optimization of current content.",
+                    strat3Title: "Media Buying & Ads",
+                    strat3Desc: "Advanced management of advertising budgets on Meta, TikTok, and Google.",
+                    strat4Title: "Launch Direction",
+                    strat4Desc: "Strategic architecture and execution to launch High-Ticket offers to the market."
                 },
                 philosophy: {
                     tag: "Our Philosophy",
@@ -247,9 +285,9 @@
                     dynEdit: "Dynamic Editing"
                 },
                 packages: {
-                    title1: "EXCLUSIVE",
-                    title2: "PACKAGES",
-                    desc: "Select your format to view tailored packages.",
+                    title1: "OUR",
+                    title2: "SECTORS",
+                    desc: "Select your sector to view packages tailored to your exact needs.",
                     btnViewTiers: "VIEW TIERS",
                     tabTiers: "Packs",
                     tabCustom: "Custom",
@@ -261,6 +299,7 @@
                     step2: "2. Quantity",
                     selectService: "Select a service above to adjust quantity",
                     summary: "MONTHLY SUMMARY",
+                    baseFee: "Management Fee",
                     estimated: "Estimated Investment",
                     btnConfirm: "Hire via WhatsApp",
                     paymentNote: "We accept secure payments exclusively via Stripe and PayPal.",
@@ -284,13 +323,40 @@
                                 { name: "Authority", items: { reels: 0, thumbs: 8, videos: 8, design: 0 }, feats: ["8 Long Videos", "8 Pro Thumbnails", "Retention Masterclass"] }
                             ]
                         },
+                        streamer: {
+                            title: "Streamers & Gaming",
+                            desc: "Dominate Twitch & Kick by clipping the best moments.",
+                            tiers: [
+                                { name: "Rookie", items: { reels: 10, thumbs: 2, videos: 1, design: 0 }, feats: ["10 Vertical Clips", "1 YT Highlight", "2 Pro Thumbnails"] },
+                                { name: "Affiliate", items: { reels: 20, thumbs: 4, videos: 2, design: 0 }, feats: ["20 Vertical Clips", "2 YT Highlights", "4 Pro Thumbnails"] },
+                                { name: "Partner", items: { reels: 30, thumbs: 8, videos: 4, design: 0 }, feats: ["30 Vertical Clips", "4 YT Highlights", "8 Pro Thumbnails"] }
+                            ]
+                        },
+                        empresarial: {
+                            title: "Brands & Social Media",
+                            desc: "Full social media management and digital authority for businesses.",
+                            tiers: [
+                                { name: "Local", items: { reels: 8, thumbs: 0, videos: 0, design: 12 }, feats: ["Basic Social Media Mgmt", "8 Corporate Reels", "12 Designs (Posts/Stories)", "Ideal for local business"] },
+                                { name: "National", items: { reels: 15, thumbs: 0, videos: 0, design: 20 }, feats: ["Advanced Social Mgmt", "15 Corporate Reels", "20 Designs (Posts/Stories)", "Basic Ads Campaigns"] },
+                                { name: "Corporate", items: { reels: 30, thumbs: 0, videos: 2, design: 30 }, feats: ["Total Social Dominance", "30 Short Reels", "2 Long Videos / VSL", "30 Designs and Mgmt"] }
+                            ]
+                        },
+                        podcast: {
+                            title: "Podcasts & Interviews",
+                            desc: "Take your show to the next level with multi-cam setups.",
+                            tiers: [
+                                { name: "Basic", items: { reels: 5, thumbs: 1, videos: 1, design: 0 }, feats: ["1 Full Episode", "5 Viral Clips", "1 Pro Thumbnail"] },
+                                { name: "Frequent", items: { reels: 15, thumbs: 4, videos: 4, design: 0 }, feats: ["4 Full Episodes", "15 Viral Clips", "4 Pro Thumbnails"] },
+                                { name: "Dominant", items: { reels: 30, thumbs: 8, videos: 8, design: 0 }, feats: ["8 Full Episodes", "30 Viral Clips", "8 Pro Thumbnails"] }
+                            ]
+                        },
                         mixed: {
                             title: "Mixed Ecosystem",
                             desc: "Omnichannel dominance. Everything you need in one place.",
                             tiers: [
-                                { name: "Rookie", items: { reels: 15, thumbs: 3, videos: 1, design: 0 }, feats: ["15 Reels / Shorts", "3 Thumbnails", "1 Long Video"] },
-                                { name: "Pro", items: { reels: 20, thumbs: 4, videos: 4, design: 0 }, feats: ["20 Reels / Shorts", "4 Thumbnails", "4 Long Videos"] },
-                                { name: "Elite", items: { reels: 30, thumbs: 8, videos: 8, design: 0 }, feats: ["30 Reels / Shorts", "8 Thumbnails", "8 Long Videos", "VIP Assignment"] }
+                                { name: "Essential", items: { reels: 15, thumbs: 3, videos: 1, design: 2 }, feats: ["15 Reels / Shorts", "3 Thumbnails", "1 Long Video", "2 Graphic Posts"] },
+                                { name: "Pro", items: { reels: 20, thumbs: 4, videos: 4, design: 4 }, feats: ["20 Reels / Shorts", "4 Thumbnails", "4 Long Videos", "4 Graphic Posts"] },
+                                { name: "Elite", items: { reels: 30, thumbs: 8, videos: 8, design: 8 }, feats: ["30 Reels / Shorts", "8 Thumbnails", "8 Long Videos", "8 Graphic Posts"] }
                             ]
                         }
                     },
@@ -314,7 +380,7 @@
             }
         };
 
-        // --- ICONOS NATIVOS (SVG) ---
+        // --- ICONOS NATIVOS CONSOLIDADOS ---
         const Icon = ({ children, className = "w-6 h-6", ...props }) => (
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className} {...props}>
                 {children}
@@ -346,10 +412,14 @@
         const Camera = (p) => <Icon {...p}><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></Icon>;
         const MessageCircle = (p) => <Icon {...p}><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></Icon>;
         const Layers = (p) => <Icon {...p}><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></Icon>;
+        const Mic = (p) => <Icon {...p}><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="23"></line><line x1="8" y1="23" x2="16" y2="23"></line></Icon>;
+        const Menu = (p) => <Icon {...p}><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></Icon>;
+        const BarChart = (p) => <Icon {...p}><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></Icon>;
 
         // --- NAVEGACIÓN ---
         const Navigation = () => {
             const [scrolled, setScrolled] = useState(false);
+            const [isOpen, setIsOpen] = useState(false);
             const { lang, setLang, t } = useContext(LanguageContext);
 
             useEffect(() => {
@@ -371,23 +441,52 @@
                                 </span>
                             </div>
                             
-                            {/* Selector de Idioma */}
-                            <div className="flex items-center bg-white/5 border border-white/10 rounded-full p-1">
-                                <button 
-                                    onClick={() => setLang('es')} 
-                                    className={`px-3 py-1 text-xs sm:text-sm font-bold rounded-full transition-all ${lang === 'es' ? 'bg-white text-black' : 'text-gray-400 hover:text-white'}`}
-                                >
-                                    ES
-                                </button>
-                                <button 
-                                    onClick={() => setLang('en')} 
-                                    className={`px-3 py-1 text-xs sm:text-sm font-bold rounded-full transition-all ${lang === 'en' ? 'bg-white text-black' : 'text-gray-400 hover:text-white'}`}
-                                >
-                                    EN
-                                </button>
+                            <div className="hidden md:flex space-x-8 items-center">
+                                {['Servicios', 'Showcase', 'Paquetes', 'Liderazgo'].map((item) => (
+                                    <a key={item} href={`#${item.toLowerCase()}`} className="text-sm font-medium text-gray-300 hover:text-white hover:shadow-[0_0_10px_rgba(255,255,255,0.5)] transition-all uppercase tracking-wide">
+                                        {item}
+                                    </a>
+                                ))}
+                            </div>
+
+                            <div className="flex items-center gap-4">
+                                {/* Selector de Idioma */}
+                                <div className="flex items-center bg-white/5 border border-white/10 rounded-full p-1">
+                                    <button 
+                                        onClick={() => setLang('es')} 
+                                        className={`px-3 py-1 text-xs sm:text-sm font-bold rounded-full transition-all ${lang === 'es' ? 'bg-white text-black' : 'text-gray-400 hover:text-white'}`}
+                                    >
+                                        ES
+                                    </button>
+                                    <button 
+                                        onClick={() => setLang('en')} 
+                                        className={`px-3 py-1 text-xs sm:text-sm font-bold rounded-full transition-all ${lang === 'en' ? 'bg-white text-black' : 'text-gray-400 hover:text-white'}`}
+                                    >
+                                        EN
+                                    </button>
+                                </div>
+
+                                <div className="md:hidden">
+                                    <button onClick={() => setIsOpen(!isOpen)} className="text-white p-2">
+                                        {isOpen ? <X /> : <Menu />}
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
+
+                    {/* Menú Móvil */}
+                    {isOpen && (
+                        <div className="md:hidden bg-black/95 backdrop-blur-xl border-b border-white/10 absolute w-full">
+                            <div className="px-6 py-8 space-y-4">
+                                {['Servicios', 'Showcase', 'Paquetes', 'Liderazgo'].map((item) => (
+                                    <a key={item} href={`#${item.toLowerCase()}`} onClick={() => setIsOpen(false)} className="block text-xl font-bold text-white hover:text-blue-500">
+                                        {item}
+                                    </a>
+                                ))}
+                            </div>
+                        </div>
+                    )}
                 </nav>
             );
         };
@@ -422,28 +521,65 @@
                         </p>
                         
                         <div className="flex justify-center">
-                            <div className="relative inline-block text-center w-full sm:w-auto">
-                                <button 
-                                    onClick={() => setShowServicesMenu(!showServicesMenu)}
-                                    className="flex items-center justify-center w-full sm:w-auto px-6 py-3 sm:px-8 sm:py-4 rounded-full font-bold text-white border border-white/20 bg-white/5 hover:bg-white/10 transition-all backdrop-blur-sm mx-auto"
-                                >
-                                    {t.hero.btnServices}
-                                </button>
-                                
-                                {showServicesMenu && (
-                                    <div className="absolute left-1/2 -translate-x-1/2 mt-4 w-64 rounded-2xl shadow-2xl bg-[#111] border border-white/10 p-4 z-50 animate-fade-in-up">
-                                        <h4 className="text-xs text-blue-500 font-bold uppercase tracking-widest mb-3 px-2">{t.hero.menuServicesTitle}</h4>
-                                        <ul className="space-y-1 text-left">
-                                            <li className="text-sm text-gray-300 hover:text-white cursor-pointer p-2 hover:bg-white/10 rounded-lg transition">{t.hero.menuItem1}</li>
-                                            <li className="text-sm text-gray-300 hover:text-white cursor-pointer p-2 hover:bg-white/10 rounded-lg transition">{t.hero.menuItem2}</li>
-                                            <li className="text-sm text-gray-300 hover:text-white cursor-pointer p-2 hover:bg-white/10 rounded-lg transition">{t.hero.menuItem3}</li>
-                                            <li className="text-sm text-gray-300 hover:text-white cursor-pointer p-2 hover:bg-white/10 rounded-lg transition">{t.hero.menuItem4}</li>
-                                        </ul>
-                                    </div>
-                                )}
-                            </div>
+                            <button 
+                                onClick={() => setShowServicesMenu(true)}
+                                className="flex items-center justify-center w-full sm:w-auto px-6 py-3 sm:px-8 sm:py-4 rounded-full font-bold text-white border border-white/20 bg-white/5 hover:bg-white/10 transition-all backdrop-blur-sm mx-auto"
+                            >
+                                {t.hero.btnServices}
+                            </button>
                         </div>
                     </div>
+
+                    {/* MODAL DE SERVICIOS ESTRATÉGICOS */}
+                    {showServicesMenu && (
+                        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+                            <div className="absolute inset-0 bg-black/80 backdrop-blur-md" onClick={() => setShowServicesMenu(false)}></div>
+                            <div className="bg-[#111] rounded-2xl md:rounded-3xl w-full max-w-3xl relative z-10 border border-white/10 flex flex-col shadow-2xl animate-fade-in-up">
+                                <button onClick={() => setShowServicesMenu(false)} className="absolute top-4 right-4 md:top-6 md:right-6 p-2 bg-white/5 hover:bg-white/10 rounded-full text-white transition-colors z-20">
+                                    <X className="w-5 h-5 md:w-6 md:h-6" />
+                                </button>
+                                
+                                <div className="p-6 md:p-10">
+                                    <h3 className="text-2xl md:text-3xl font-bold text-white mb-2">{t.hero.modalTitle}</h3>
+                                    <p className="text-gray-400 text-sm md:text-base mb-8">{t.hero.modalDesc}</p>
+
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+                                        <div className="bg-white/5 border border-white/5 p-5 rounded-xl hover:bg-white/10 transition-colors">
+                                            <div className="w-10 h-10 rounded-lg bg-blue-500/20 text-blue-500 flex items-center justify-center mb-4">
+                                                <Zap className="w-5 h-5" />
+                                            </div>
+                                            <h4 className="text-white font-bold mb-2">{t.hero.strat1Title}</h4>
+                                            <p className="text-gray-400 text-sm">{t.hero.strat1Desc}</p>
+                                        </div>
+
+                                        <div className="bg-white/5 border border-white/5 p-5 rounded-xl hover:bg-white/10 transition-colors">
+                                            <div className="w-10 h-10 rounded-lg bg-purple-500/20 text-purple-500 flex items-center justify-center mb-4">
+                                                <BarChart className="w-5 h-5" />
+                                            </div>
+                                            <h4 className="text-white font-bold mb-2">{t.hero.strat2Title}</h4>
+                                            <p className="text-gray-400 text-sm">{t.hero.strat2Desc}</p>
+                                        </div>
+
+                                        <div className="bg-white/5 border border-white/5 p-5 rounded-xl hover:bg-white/10 transition-colors">
+                                            <div className="w-10 h-10 rounded-lg bg-green-500/20 text-green-500 flex items-center justify-center mb-4">
+                                                <TrendingUp className="w-5 h-5" />
+                                            </div>
+                                            <h4 className="text-white font-bold mb-2">{t.hero.strat3Title}</h4>
+                                            <p className="text-gray-400 text-sm">{t.hero.strat3Desc}</p>
+                                        </div>
+
+                                        <div className="bg-white/5 border border-white/5 p-5 rounded-xl hover:bg-white/10 transition-colors">
+                                            <div className="w-10 h-10 rounded-lg bg-yellow-500/20 text-yellow-500 flex items-center justify-center mb-4">
+                                                <Crown className="w-5 h-5" />
+                                            </div>
+                                            <h4 className="text-white font-bold mb-2">{t.hero.strat4Title}</h4>
+                                            <p className="text-gray-400 text-sm">{t.hero.strat4Desc}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    )}
                 </section>
             );
         };
@@ -475,7 +611,7 @@
             const colors = [ "text-blue-500", "text-purple-500", "text-green-500", "text-yellow-500", "text-pink-500", "text-orange-500" ];
 
             return (
-                <section id="services" className="py-16 md:py-24 bg-[#0a0a0a]">
+                <section id="servicios" className="py-16 md:py-24 bg-[#0a0a0a]">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6">
                         <div className="text-center mb-12 sm:mb-16">
                             <span className="text-blue-500 font-bold tracking-widest text-xs sm:text-sm uppercase">{t.services.tag}</span>
@@ -532,7 +668,7 @@
                             
                             <div className="relative mt-8 lg:mt-0 w-full max-w-md mx-auto lg:max-w-none">
                                 <div className="absolute inset-0 bg-gradient-to-tr from-purple-600 to-blue-600 rounded-3xl blur-2xl opacity-20 animate-pulse"></div>
-                                <img src="https://images.unsplash.com/photo-1589998059171-988d887df646?auto=format&fit=crop&w=800&q=80" alt="Production" className="relative rounded-3xl border border-white/10 shadow-2xl object-cover h-[350px] sm:h-[450px] md:h-[650px] w-full filter brightness-75 hover:brightness-100 hover:scale-[1.02] transition-all duration-500" />
+                                <img src="https://images.unsplash.com/photo-1598899134739-24c46f58b8c0?auto=format&fit=crop&w=800&q=80" alt="Production Set" className="relative rounded-3xl border border-white/10 shadow-2xl object-cover h-[350px] sm:h-[450px] md:h-[650px] w-full filter brightness-75 hover:brightness-100 hover:scale-[1.02] transition-all duration-500" />
                                 <div className="absolute bottom-4 left-4 right-4 sm:bottom-6 sm:left-6 sm:right-6 bg-black/70 backdrop-blur-xl border border-white/10 p-3 sm:p-5 rounded-2xl flex items-center gap-3 sm:gap-4">
                                     <div className="w-2 h-2 sm:w-3 sm:h-3 bg-red-500 rounded-full animate-pulse shadow-[0_0_10px_rgba(239,68,68,0.8)] flex-shrink-0"></div>
                                     <span className="text-white font-bold tracking-widest text-[10px] sm:text-sm uppercase truncate">{t.production.overlay}</span>
@@ -640,19 +776,43 @@
                     ...t.packages.data.reels,
                     icon: <Smartphone className="w-6 h-6 md:w-8 md:h-8 text-white" />,
                     color: "bg-blue-600",
-                    accent: "text-blue-500"
+                    accent: "text-blue-500",
+                    base: 0
                 },
                 youtube: {
                     ...t.packages.data.youtube,
                     icon: <MonitorPlay className="w-6 h-6 md:w-8 md:h-8 text-white" />,
                     color: "bg-red-600",
-                    accent: "text-red-500"
+                    accent: "text-red-500",
+                    base: 0
+                },
+                streamer: {
+                    ...t.packages.data.streamer,
+                    icon: <Twitch className="w-6 h-6 md:w-8 md:h-8 text-white" />,
+                    color: "bg-purple-600",
+                    accent: "text-purple-500",
+                    base: 0
+                },
+                empresarial: {
+                    ...t.packages.data.empresarial,
+                    icon: <Briefcase className="w-6 h-6 md:w-8 md:h-8 text-white" />,
+                    color: "bg-indigo-600",
+                    accent: "text-indigo-500",
+                    base: 1700 // Tarifa base de Gestión de Redes
+                },
+                podcast: {
+                    ...t.packages.data.podcast,
+                    icon: <Mic className="w-6 h-6 md:w-8 md:h-8 text-white" />,
+                    color: "bg-green-600",
+                    accent: "text-green-500",
+                    base: 0
                 },
                 mixed: {
                     ...t.packages.data.mixed,
                     icon: <Layers className="w-6 h-6 md:w-8 md:h-8 text-white" />,
-                    color: "bg-purple-600",
-                    accent: "text-purple-500"
+                    color: "bg-yellow-600",
+                    accent: "text-yellow-500",
+                    base: 0
                 }
             };
 
@@ -662,42 +822,52 @@
                 setEditingStyle('basic'); 
                 
                 let defaults = { reels: false, thumbs: false, videos: false, design: false };
-                if (k === 'reels') defaults.reels = true;
+                if (k === 'reels') { defaults.reels = true; setConfig({...config, reels: 15}); }
                 if (k === 'youtube') { defaults.videos = true; defaults.thumbs = true; }
+                if (k === 'streamer') { defaults.reels = true; defaults.videos = true; defaults.thumbs = true; }
+                if (k === 'empresarial') { defaults.reels = true; defaults.design = true; setConfig({...config, reels: 8, design: 12}); }
+                if (k === 'podcast') { defaults.reels = true; defaults.videos = true; defaults.thumbs = true; }
                 if (k === 'mixed') { defaults.reels = true; defaults.videos = true; defaults.thumbs = true; defaults.design = true; }
                 setActiveServices(defaults);
             };
 
-            // Lógica Centralizada de Precios (Igual para Paquetes y Cotizador Libre)
+            // Lógica Centralizada de Precios (Reel Básico = 150)
             const getPrice = (service, style) => {
                 if (service === 'reels') {
-                    if (style === 'basic') return 200;
+                    if (style === 'basic') return 150;
                     if (style === 'semi') return 350;
                     if (style === 'dynamic') return 550;
                 }
+                const multiplier = style === 'basic' ? 1 : style === 'semi' ? 1.25 : 1.5;
                 const bases = { thumbs: 250, videos: 1500, design: 300 };
-                const multipliers = { basic: 1, semi: 1.25, dynamic: 1.5 };
-                return bases[service] * multipliers[style];
+                return bases[service] * multiplier;
             };
 
-            const calculateTierPrice = (items) => {
-                return (items.reels * getPrice('reels', editingStyle)) +
-                       (items.thumbs * getPrice('thumbs', editingStyle)) +
-                       (items.videos * getPrice('videos', editingStyle)) +
-                       (items.design * getPrice('design', editingStyle));
+            const getBaseFee = (baseFee, style) => {
+                const multiplier = style === 'basic' ? 1 : style === 'semi' ? 1.25 : 1.5;
+                return baseFee * multiplier;
+            };
+
+            const calculateTierPrice = (items, baseFee) => {
+                return ((items.reels || 0) * getPrice('reels', editingStyle)) +
+                       ((items.thumbs || 0) * getPrice('thumbs', editingStyle)) +
+                       ((items.videos || 0) * getPrice('videos', editingStyle)) +
+                       ((items.design || 0) * getPrice('design', editingStyle)) +
+                       getBaseFee(baseFee, editingStyle);
             };
 
             const calcTotal = () => {
                 let total = 0;
+                if(!selectedPkg) return 0;
+                const p = data[selectedPkg];
+                total += getBaseFee(p.base, editingStyle);
+                
                 if(activeServices.reels) total += config.reels * getPrice('reels', editingStyle);
                 if(activeServices.thumbs) total += config.thumbs * getPrice('thumbs', editingStyle);
                 if(activeServices.videos) total += config.videos * getPrice('videos', editingStyle);
                 if(activeServices.design) total += config.design * getPrice('design', editingStyle);
+                
                 return total;
-            };
-
-            const toggleService = (service) => {
-                setActiveServices(prev => ({...prev, [service]: !prev[service]}));
             };
 
             const handleWhatsApp = (tierName = null) => {
@@ -707,7 +877,7 @@
 
                 if (typeof tierName === 'string') {
                     const tierObj = data[selectedPkg].tiers.find(t => t.name === tierName);
-                    const total = calculateTierPrice(tierObj.items).toLocaleString('es-MX');
+                    const total = calculateTierPrice(tierObj.items, data[selectedPkg].base).toLocaleString('es-MX');
                     text = `${t.packages.whatsappMsg} "${pkgTitle}" (Nivel: ${tierName}). Estilo de edición: ${styleName}. Total estimado: $${total} ${t.packages.currency}. ¿Podemos agendar?`;
                 } else {
                     const total = calcTotal().toLocaleString('es-MX');
@@ -718,7 +888,7 @@
             };
 
             return (
-                <section id="packages" className="py-16 md:py-32 bg-[#050505]">
+                <section id="paquetes" className="py-16 md:py-32 bg-[#050505]">
                     <div className="max-w-7xl mx-auto px-4 sm:px-6">
                         <div className="text-center mb-12 md:mb-20">
                             <h2 className="text-3xl sm:text-4xl md:text-6xl font-black text-white mb-2 md:mb-4">{t.packages.title1} <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-500 to-blue-500">{t.packages.title2}</span></h2>
@@ -779,7 +949,7 @@
                                                     <span className={`text-[10px] md:text-xs font-bold uppercase tracking-widest ${data[selectedPkg].accent}`}>Nivel {i+1}</span>
                                                     <h4 className="text-xl md:text-2xl font-bold text-white mt-1 md:mt-2">{tier.name}</h4>
                                                     <div className="text-xl md:text-3xl font-bold text-white mt-1 md:mt-2 mb-4 md:mb-6">
-                                                        ${calculateTierPrice(tier.items).toLocaleString('es-MX')} <span className="text-sm text-gray-400 font-normal">{t.packages.currency}</span>
+                                                        ${calculateTierPrice(tier.items, data[selectedPkg].base).toLocaleString('es-MX')} <span className="text-sm text-gray-400 font-normal">{t.packages.currency}</span>
                                                     </div>
                                                     <ul className="space-y-2 md:space-y-3 mb-6 md:mb-8 flex-grow">
                                                         {tier.feats.map((f, j) => (
@@ -832,6 +1002,10 @@
                                                         {activeServices.thumbs && <li className="flex justify-between"><span>{config.thumbs} x {t.packages.customLabels.thumbs}</span><span>${(config.thumbs * getPrice('thumbs', editingStyle)).toLocaleString('es-MX')}</span></li>}
                                                         {activeServices.videos && <li className="flex justify-between"><span>{config.videos} x {t.packages.customLabels.videos}</span><span>${(config.videos * getPrice('videos', editingStyle)).toLocaleString('es-MX')}</span></li>}
                                                         {activeServices.design && <li className="flex justify-between"><span>{config.design} x {t.packages.customLabels.design}</span><span>${(config.design * getPrice('design', editingStyle)).toLocaleString('es-MX')}</span></li>}
+                                                        
+                                                        {data[selectedPkg].base > 0 && (
+                                                            <li className="flex justify-between pt-3 md:pt-4 border-t border-white/10 text-[10px] md:text-xs text-gray-500 uppercase"><span>{t.packages.baseFee}</span><span>${getBaseFee(data[selectedPkg].base, editingStyle).toLocaleString('es-MX')}</span></li>
+                                                        )}
                                                     </ul>
                                                 </div>
                                                 <div className="mt-6 md:mt-8 pt-4 md:pt-6 border-t border-white/10">
@@ -859,7 +1033,7 @@
         const TeamSection = () => {
             const { t } = useContext(LanguageContext);
             return (
-                <section className="py-16 md:py-32 bg-[#050505] border-t border-white/10 relative overflow-hidden">
+                <section id="liderazgo" className="py-16 md:py-32 bg-[#050505] border-t border-white/10 relative overflow-hidden">
                     <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] md:w-[600px] md:h-[600px] bg-blue-900/10 rounded-full blur-[80px] md:blur-[120px]"></div>
 
                     <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
@@ -874,12 +1048,12 @@
                                 <div className="relative bg-[#0a0a0a] border border-white/10 p-6 md:p-10 rounded-2xl md:rounded-3xl text-center transform group-hover:-translate-y-1 md:group-hover:-translate-y-2 transition duration-500 h-full flex flex-col items-center">
                                     <div className="w-32 h-32 md:w-48 md:h-48 mx-auto rounded-full p-1 bg-gradient-to-br from-blue-500 to-purple-600 mb-6 md:mb-8 shadow-xl shadow-blue-900/20">
                                         <img 
-                                            src="https://media.discordapp.net/attachments/1020791454852984863/1464075922465493013/unnamed_1.jpg?ex=6991d035&is=69907eb5&hm=58109d2e9ce555d34d5641ea48e086e7ffed02c90768c2cd2978d03517f4a67e&=&format=webp&width=800&height=800" 
+                                            src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80" 
                                             alt="Andres David" 
                                             className="w-full h-full object-cover rounded-full border-2 md:border-4 border-[#0a0a0a]" 
                                         />
                                     </div>
-                                    <h3 className="text-2xl md:text-3xl font-bold text-white mb-2">Andres David</h3>
+                                    <h3 className="text-2xl md:text-3xl font-bold text-white mb-2">Andres Garcia Huerta</h3>
                                     <div className="inline-flex items-center gap-1.5 md:gap-2 px-3 py-1 md:px-4 md:py-1.5 rounded-full bg-blue-500/10 text-blue-400 text-[10px] md:text-xs font-bold uppercase tracking-wider mb-4 md:mb-6 border border-blue-500/20">
                                         <Crown className="w-3 h-3" /> {t.team.role}
                                     </div>
