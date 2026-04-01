@@ -127,8 +127,8 @@
                     title1: "ARSENAL",
                     title2: "VISUAL",
                     desc: "Podemos producir cualquier estilo. Trabajamos tanto para creadores de contenido como para agencias, empresas corporativas y productoras de televisión.",
-                    subtitle: "Formatos adaptables: Vertical (9:16) y Horizontal (16:9)",
-                    dynEdit: "Edición Dinámica"
+                    btnDrive: "VER PORTAFOLIO EN DRIVE",
+                    note: "* Nota: En este enlace solo encontrarás una selección de ejemplos que actualizamos constantemente, compartidos estrictamente bajo el permiso de nuestros clientes."
                 },
                 packages: {
                     title1: "NUESTROS",
@@ -281,8 +281,8 @@
                     title1: "VISUAL",
                     title2: "ARSENAL",
                     desc: "We can produce any style. We work for content creators, agencies, corporate businesses, and TV production companies.",
-                    subtitle: "Adaptable formats: Vertical (9:16) & Horizontal (16:9)",
-                    dynEdit: "Dynamic Editing"
+                    btnDrive: "VIEW PORTFOLIO ON DRIVE",
+                    note: "* Note: In this link you will only find a selection of examples that we constantly update, shared strictly with the permission of our clients."
                 },
                 packages: {
                     title1: "OUR",
@@ -685,121 +685,33 @@
         // --- VIDEO SHOWCASE ---
         const VideoShowcase = () => {
             const { t } = useContext(LanguageContext);
-            const [playingIndex, setPlayingIndex] = useState(null);
-            const [startIndex, setStartIndex] = useState(0);
-            const [videoError, setVideoError] = useState(null);
-
-            // Helpers para soportar links de YouTube y páginas web
-            const isYouTube = (url) => url && (url.includes('youtube.com') || url.includes('youtu.be'));
-            const isWebPage = (url) => url && (url.includes('blogspot.com') || url.endsWith('.html'));
-            const getYouTubeId = (url) => {
-                if (!url) return '';
-                if (url.includes('shorts/')) return url.split('shorts/')[1].split('?')[0];
-                if (url.includes('v=')) return url.split('v=')[1].split('&')[0];
-                if (url.includes('youtu.be/')) return url.split('youtu.be/')[1].split('?')[0];
-                return '';
-            };
-
-            const reels = [
-                { title: "Edición Anime", views: "3.5M", image: "https://images.unsplash.com/photo-1541562232579-512a21360020?auto=format&fit=crop&w=600&q=80", category: "Anime / AMV", videoUrl: "./videos/anime.mp4" },
-                { title: "Fitness y Motivación", views: "1.2M", image: "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=600&q=80", category: "Reel", videoUrl: "./videos/fitness.mp4" },
-                { title: "IA CONTEND", views: "2.5M", image: "https://images.unsplash.com/photo-1618331835717-801e976710b2?auto=format&fit=crop&w=600&q=80", category: "Short", videoUrl: "./videos/IA.mp4" },
-                { title: "Food & Culinary", views: "500k", image: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=600&q=80", category: "Reel", videoUrl: "./videos/food.mp4" },
-                { title: "Gaming Highlights", views: "3.1M", image: "https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=600&q=80", category: "Gaming", videoUrl: "./videos/gaming.mp4" },
-                { title: "Religion", views: "400k", image: "https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=600&q=80", category: "Religion", videoUrl: "./videos/Religion.mp4" },
-                { title: "Podcast Clips", views: "900k", image: "https://images.unsplash.com/photo-1590602847861-f357a9332bbc?auto=format&fit=crop&w=600&q=80", category: "Podcast", videoUrl: "./videos/podcast.mp4" },
-                { title: "Luxury Real Estate", views: "1.5M", image: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=600&q=80", category: "Real Estate", videoUrl: "./videos/realestate.mp4" }
-            ];
-
-            const getVisibleReels = () => {
-                let visible = [];
-                for (let i = 0; i < 4; i++) {
-                    visible.push(reels[(startIndex + i) % reels.length]);
-                }
-                return visible;
-            };
-
-            const nextSlide = () => { setStartIndex((prev) => (prev + 1) % reels.length); setPlayingIndex(null); setVideoError(null); };
-            const prevSlide = () => { setStartIndex((prev) => (prev - 1 + reels.length) % reels.length); setPlayingIndex(null); setVideoError(null); };
+            
+            // Reemplaza este enlace con tu URL real de Google Drive
+            const driveLink = "https://drive.google.com/drive/folders/1OlJiNGf1X181AVcgwlrhMdcTjFMrSdFP?usp=sharing";
 
             return (
                 <section id="showcase" className="py-16 md:py-32 bg-black relative">
                     <div className="absolute top-0 right-0 w-full h-px bg-gradient-to-r from-transparent via-blue-900 to-transparent opacity-50"></div>
                     <div className="max-w-7xl mx-auto px-4 sm:px-6">
-                        <div className="mb-12 md:mb-20 text-center md:text-left">
+                        <div className="mb-12 md:mb-16 text-center">
                             <h2 className="text-3xl sm:text-4xl md:text-6xl font-black text-white mb-4 md:mb-6">{t.showcase.title1} <span className="text-blue-600">{t.showcase.title2}</span></h2>
-                            <p className="text-sm sm:text-base md:text-lg text-gray-400 max-w-2xl leading-relaxed mx-auto md:mx-0">{t.showcase.desc}</p>
+                            <p className="text-sm sm:text-base md:text-lg text-gray-400 max-w-2xl leading-relaxed mx-auto mb-4">{t.showcase.desc}</p>
+                            <p className="text-xs sm:text-sm text-gray-500 max-w-xl mx-auto italic">{t.showcase.note}</p>
                         </div>
-                        <div className="mb-12 md:mb-24 relative">
-                            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6 md:mb-8">
-                                <div className="flex items-center justify-center md:justify-start gap-3">
-                                    <div className="p-2 bg-white/10 rounded-lg hidden sm:block"><MonitorPlay className="text-blue-500 w-5 h-5 md:w-6 md:h-6" /></div>
-                                    <div className="text-center md:text-left">
-                                        <h3 className="text-xl md:text-2xl font-bold text-white flex items-center justify-center md:justify-start gap-3">{t.showcase.dynEdit}</h3>
-                                        <span className="inline-block mt-1 bg-blue-500/10 text-blue-400 text-[10px] md:text-xs px-2 py-1 rounded border border-blue-500/20">{t.showcase.subtitle}</span>
-                                    </div>
-                                </div>
-                                <div className="flex gap-2 justify-center md:justify-end">
-                                    <button onClick={prevSlide} className="p-2 md:p-3 bg-white/10 hover:bg-white/20 rounded-full transition-colors text-white"><ChevronLeft className="w-4 h-4 md:w-5 md:h-5" /></button>
-                                    <button onClick={nextSlide} className="p-2 md:p-3 bg-white/10 hover:bg-white/20 rounded-full transition-colors text-white"><ArrowRight className="w-4 h-4 md:w-5 md:h-5" /></button>
-                                </div>
-                            </div>
-
-                            {/* Actualizada la cuadrícula para que en móvil salgan varias columnas igual que en PC */}
-                            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-6">
-                                {getVisibleReels().map((reel, i) => (
-                                    <div key={i} onClick={() => { if(reel.videoUrl) { setPlayingIndex(i); setVideoError(null); } }} className="group relative aspect-[9/16] rounded-2xl overflow-hidden cursor-pointer border border-white/10 hover:border-blue-500/50 transition-all duration-500 bg-[#0a0a0a]">
-                                        {playingIndex === i && reel.videoUrl ? (
-                                            isYouTube(reel.videoUrl) ? (
-                                                <iframe 
-                                                    src={`https://www.youtube.com/embed/${getYouTubeId(reel.videoUrl)}?autoplay=1&controls=1&rel=0&playsinline=1`}
-                                                    className="w-full h-full absolute inset-0 z-20 bg-black border-0"
-                                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                                    allowFullScreen
-                                                ></iframe>
-                                            ) : isWebPage(reel.videoUrl) ? (
-                                                <iframe 
-                                                    src={reel.videoUrl}
-                                                    className="w-full h-full absolute inset-0 z-20 bg-white border-0"
-                                                    sandbox="allow-same-origin allow-scripts"
-                                                ></iframe>
-                                            ) : (
-                                                <>
-                                                    <video 
-                                                        src={reel.videoUrl} 
-                                                        className={`w-full h-full absolute inset-0 object-contain z-20 bg-black ${videoError === i ? 'hidden' : ''}`} 
-                                                        controls autoPlay playsInline controlsList="nodownload" preload="none"
-                                                        onError={() => setVideoError(i)}
-                                                    ></video>
-                                                    {videoError === i && (
-                                                        <div className="absolute inset-0 z-30 bg-black/95 flex flex-col items-center justify-center p-4 text-center border border-red-500/30">
-                                                            <div className="w-12 h-12 rounded-full bg-red-500/20 flex items-center justify-center mb-3">
-                                                                <X className="w-6 h-6 text-red-500"/>
-                                                            </div>
-                                                            <p className="text-white text-sm font-bold mb-1">Video no encontrado</p>
-                                                            <p className="text-gray-400 text-[10px] sm:text-xs mb-4">Asegúrate de tener el archivo en la carpeta "videos".</p>
-                                                            <button onClick={(e) => { e.stopPropagation(); setPlayingIndex(null); }} className="px-4 py-2 bg-white/10 rounded-lg text-xs font-bold hover:bg-white/20 transition-colors text-white">Cerrar</button>
-                                                        </div>
-                                                    )}
-                                                </>
-                                            )
-                                        ) : (
-                                            <>
-                                                <img src={reel.image} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 filter brightness-75 group-hover:brightness-100" />
-                                                <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-90"></div>
-                                                <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                                    <div className="w-10 h-10 md:w-12 md:h-12 bg-white/20 backdrop-blur-md rounded-full flex items-center justify-center"><Play className="w-4 h-4 md:w-5 md:h-5 text-white fill-white" /></div>
-                                                </div>
-                                            </>
-                                        )}
-                                        <div className={`absolute bottom-0 left-0 p-3 md:p-4 w-full z-10 pointer-events-none ${playingIndex === i ? 'hidden' : 'block'}`}>
-                                            <span className="text-[10px] md:text-xs font-bold text-blue-400 uppercase tracking-wider mb-1 block drop-shadow-md">{reel.category}</span>
-                                            <h4 className="text-sm md:text-base text-white font-bold leading-tight mb-1 md:mb-2 drop-shadow-md">{reel.title}</h4>
-                                            <div className="flex items-center gap-1 text-[10px] md:text-xs text-gray-300 drop-shadow-md"><TrendingUp className="w-2 h-2 md:w-3 md:h-3" /> {reel.views}</div>
-                                        </div>
-                                    </div>
-                                ))}
-                            </div>
+                        
+                        <div className="flex justify-center">
+                            <a 
+                                href={driveLink} 
+                                target="_blank" 
+                                rel="noopener noreferrer"
+                                className="group relative inline-flex items-center justify-center px-8 py-4 sm:px-10 sm:py-5 text-base sm:text-lg font-bold text-white transition-all duration-300 bg-blue-600 rounded-full hover:bg-blue-500 hover:scale-105 shadow-[0_0_20px_rgba(37,99,235,0.4)] hover:shadow-[0_0_40px_rgba(37,99,235,0.6)]"
+                            >
+                                <span className="flex items-center gap-3">
+                                    <MonitorPlay className="w-5 h-5 sm:w-6 sm:h-6" />
+                                    {t.showcase.btnDrive}
+                                    <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform" />
+                                </span>
+                            </a>
                         </div>
                     </div>
                 </section>
@@ -934,7 +846,7 @@
                     text = `${t.packages.whatsappMsg} "${pkgTitle}" (A la medida). Estilo de edición: ${styleName}. ${t.packages.estimated}: $${total} ${t.packages.currency}. Mis servicios activos son: ${activeServices.reels ? config.reels+' Reels, ' : ''}${activeServices.thumbs ? config.thumbs+' Miniaturas, ' : ''}${activeServices.videos ? config.videos+' Videos, ' : ''}${activeServices.design ? config.design+' Diseños' : ''}. ¿Podemos agendar?`;
                 }
                 
-                window.open(`https://wa.me/5211234567890?text=${encodeURIComponent(text)}`, '_blank');
+                window.open(`https://wa.me/525533499847?text=${encodeURIComponent(text)}`, '_blank');
             };
 
             return (
