@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>AD | Agencia High-End</title>
     
     <!-- React & ReactDOM -->
@@ -23,9 +23,7 @@
         tailwind.config = {
             theme: {
                 extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                    },
+                    fontFamily: { sans: ['Inter', 'sans-serif'] },
                     animation: {
                         'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
                         'gradient': 'gradient 8s linear infinite',
@@ -37,10 +35,7 @@
                             '0%, 100%': { 'background-size': '200% 200%', 'background-position': 'left center' },
                             '50%': { 'background-size': '200% 200%', 'background-position': 'right center' },
                         },
-                        fadeIn: {
-                            '0%': { opacity: '0' },
-                            '100%': { opacity: '1' },
-                        },
+                        fadeIn: { '0%': { opacity: '0' }, '100%': { opacity: '1' } },
                         fadeInUp: {
                             '0%': { opacity: '0', transform: 'translateY(20px)' },
                             '100%': { opacity: '1', transform: 'translateY(0)' },
@@ -52,11 +47,23 @@
     </script>
 
     <style>
+        html { scroll-behavior: smooth; }
         body { background-color: #050505; color: white; overflow-x: hidden; }
+        
+        /* Scrollbar general */
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: #0a0a0a; }
         ::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
         ::-webkit-scrollbar-thumb:hover { background: #555; }
+
+        /* Scrollbar para modales internos */
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #444; border-radius: 10px; }
+        
+        /* Ocultar scrollbar horizontal en selectores */
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
     </style>
 </head>
 <body>
@@ -71,7 +78,7 @@
 
         const translations = {
             es: {
-                nav: { logo: "A", logoAccent: "D" },
+                nav: { logo: "A", logoAccent: "D", services: "Servicios", showcase: "Showcase", packages: "Paquetes", team: "Liderazgo" },
                 hero: {
                     badge: "Agenda Abierta 2026",
                     title1: "CREAMOS EL",
@@ -201,8 +208,8 @@
                             desc: "Dominio omnicanal. Todo lo que necesitas en un solo lugar.",
                             tiers: [
                                 { name: "Esencial", items: { reels: 15, thumbs: 3, videos: 1, design: 2 }, feats: ["15 Reels / Shorts", "3 Miniaturas", "1 Video Largo", "2 Diseños Post"] },
-                                { name: "Pro", items: { reels: 20, thumbs: 4, videos: 4, design: 4 }, feats: ["20 Reels / Shorts", "4 Miniaturas", "4 Videos Largos", "4 Diseños Post"] },
-                                { name: "Elite", items: { reels: 30, thumbs: 8, videos: 8, design: 8 }, feats: ["30 Reels / Shorts", "8 Miniaturas", "8 Videos Largos", "8 Diseños Post"] }
+                                { name: "Pro", items: { reels: 20, thumbs: 4, videos: 4, design: 4 }, feats: ["20 Reels / Shorts", "4 Miniaturas", "4 Videos Largos", "4 Graphic Posts"] },
+                                { name: "Elite", items: { reels: 30, thumbs: 8, videos: 8, design: 8 }, feats: ["30 Reels / Shorts", "8 Miniaturas", "8 Videos Largos", "8 Graphic Posts"] }
                             ]
                         }
                     },
@@ -225,7 +232,7 @@
                 }
             },
             en: {
-                nav: { logo: "A", logoAccent: "D" },
+                nav: { logo: "A", logoAccent: "D", services: "Services", showcase: "Showcase", packages: "Packages", team: "Team" },
                 hero: {
                     badge: "Books Open 2026",
                     title1: "WE CREATE",
@@ -380,7 +387,7 @@
             }
         };
 
-        // --- ICONOS NATIVOS CONSOLIDADOS ---
+        // --- ICONOS ---
         const Icon = ({ children, className = "w-6 h-6", ...props }) => (
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className} {...props}>
                 {children}
@@ -413,10 +420,9 @@
         const MessageCircle = (p) => <Icon {...p}><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></Icon>;
         const Layers = (p) => <Icon {...p}><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></Icon>;
         const Mic = (p) => <Icon {...p}><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="23"></line><line x1="8" y1="23" x2="16" y2="23"></line></Icon>;
-        const Menu = (p) => <Icon {...p}><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></Icon>;
         const BarChart = (p) => <Icon {...p}><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></Icon>;
 
-        // --- NAVEGACIÓN ---
+        // --- NAVEGACIÓN UNIFICADA (PC Y MÓVIL) ---
         const Navigation = () => {
             const [scrolled, setScrolled] = useState(false);
             const { lang, setLang, t } = useContext(LanguageContext);
@@ -427,9 +433,16 @@
                 return () => window.removeEventListener('scroll', handleScroll);
             }, []);
 
+            const navItems = [
+                { id: 'servicios', label: t.nav.services, icon: <Layout className="w-5 h-5" /> },
+                { id: 'showcase', label: t.nav.showcase, icon: <MonitorPlay className="w-5 h-5" /> },
+                { id: 'paquetes', label: t.nav.packages, icon: <Package className="w-5 h-5" /> },
+                { id: 'liderazgo', label: t.nav.team, icon: <Crown className="w-5 h-5" /> }
+            ];
+
             return (
                 <>
-                    <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${scrolled ? 'bg-black/90 backdrop-blur-md border-b border-white/10' : 'bg-transparent'}`}>
+                    <nav className={`fixed top-0 w-full z-[90] transition-all duration-300 ${scrolled ? 'bg-black/90 backdrop-blur-md border-b border-white/10' : 'bg-transparent'}`}>
                         <div className="max-w-7xl mx-auto px-4 sm:px-6">
                             <div className="flex justify-between h-20 items-center">
                                 <div className="flex items-center gap-2">
@@ -442,52 +455,33 @@
                                 </div>
                                 
                                 <div className="hidden md:flex space-x-8 items-center">
-                                    {['Servicios', 'Showcase', 'Paquetes', 'Liderazgo'].map((item) => (
-                                        <a key={item} href={`#${item.toLowerCase()}`} className="text-sm font-medium text-gray-300 hover:text-white hover:shadow-[0_0_10px_rgba(255,255,255,0.5)] transition-all uppercase tracking-wide">
-                                            {item}
+                                    {navItems.map((item) => (
+                                        <a key={item.id} href={`#${item.id}`} className="text-sm font-medium text-gray-300 hover:text-white hover:shadow-[0_0_10px_rgba(255,255,255,0.5)] transition-all uppercase tracking-wide">
+                                            {item.label}
                                         </a>
                                     ))}
                                 </div>
 
                                 <div className="flex items-center gap-4">
-                                    {/* Selector de Idioma */}
                                     <div className="flex items-center bg-white/5 border border-white/10 rounded-full p-1">
-                                        <button 
-                                            onClick={() => setLang('es')} 
-                                            className={`px-3 py-1 text-xs sm:text-sm font-bold rounded-full transition-all ${lang === 'es' ? 'bg-white text-black' : 'text-gray-400 hover:text-white'}`}
-                                        >
-                                            ES
-                                        </button>
-                                        <button 
-                                            onClick={() => setLang('en')} 
-                                            className={`px-3 py-1 text-xs sm:text-sm font-bold rounded-full transition-all ${lang === 'en' ? 'bg-white text-black' : 'text-gray-400 hover:text-white'}`}
-                                        >
-                                            EN
-                                        </button>
+                                        <button onClick={() => setLang('es')} className={`px-3 py-1 text-xs sm:text-sm font-bold rounded-full transition-all ${lang === 'es' ? 'bg-white text-black' : 'text-gray-400 hover:text-white'}`}>ES</button>
+                                        <button onClick={() => setLang('en')} className={`px-3 py-1 text-xs sm:text-sm font-bold rounded-full transition-all ${lang === 'en' ? 'bg-white text-black' : 'text-gray-400 hover:text-white'}`}>EN</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </nav>
 
-                    {/* Menú Flotante Inferior (Estilo App) para Móviles */}
-                    <div className="md:hidden fixed bottom-4 left-4 right-4 z-50 bg-black/80 backdrop-blur-xl border border-white/10 rounded-2xl px-6 py-3 flex justify-between items-center shadow-2xl">
-                        <a href="#servicios" className="flex flex-col items-center gap-1 text-gray-400 hover:text-blue-500 transition-colors">
-                            <Layout className="w-5 h-5" />
-                            <span className="text-[9px] font-bold uppercase tracking-wider">Servicios</span>
-                        </a>
-                        <a href="#showcase" className="flex flex-col items-center gap-1 text-gray-400 hover:text-blue-500 transition-colors">
-                            <MonitorPlay className="w-5 h-5" />
-                            <span className="text-[9px] font-bold uppercase tracking-wider">Showcase</span>
-                        </a>
-                        <a href="#paquetes" className="flex flex-col items-center gap-1 text-gray-400 hover:text-blue-500 transition-colors">
-                            <Package className="w-5 h-5" />
-                            <span className="text-[9px] font-bold uppercase tracking-wider">Paquetes</span>
-                        </a>
-                        <a href="#liderazgo" className="flex flex-col items-center gap-1 text-gray-400 hover:text-blue-500 transition-colors">
-                            <Crown className="w-5 h-5" />
-                            <span className="text-[9px] font-bold uppercase tracking-wider">Team</span>
-                        </a>
+                    {/* Menú Flotante Inferior (Móvil) - Ajustado para Safe-Area */}
+                    <div className="md:hidden fixed bottom-0 left-0 right-0 z-[90] px-4" style={{ paddingBottom: 'calc(1rem + env(safe-area-inset-bottom))' }}>
+                        <div className="bg-black/90 backdrop-blur-xl border border-white/10 rounded-2xl px-6 py-3 flex justify-between items-center shadow-[0_10px_40px_rgba(0,0,0,0.8)]">
+                            {navItems.map((item) => (
+                                <a key={item.id} href={`#${item.id}`} className="flex flex-col items-center gap-1 text-gray-400 hover:text-blue-500 transition-colors">
+                                    {item.icon}
+                                    <span className="text-[9px] font-bold uppercase tracking-wider">{item.label}</span>
+                                </a>
+                            ))}
+                        </div>
                     </div>
                 </>
             );
@@ -532,48 +526,41 @@
                         </div>
                     </div>
 
-                    {/* MODAL DE SERVICIOS ESTRATÉGICOS */}
+                    {/* MODAL DE SERVICIOS ESTRATÉGICOS (REPARADO PARA MÓVIL) */}
                     {showServicesMenu && (
                         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
                             <div className="absolute inset-0 bg-black/80 backdrop-blur-md" onClick={() => setShowServicesMenu(false)}></div>
-                            <div className="bg-[#111] rounded-2xl md:rounded-3xl w-full max-w-3xl relative z-10 border border-white/10 flex flex-col shadow-2xl animate-fade-in-up">
-                                <button onClick={() => setShowServicesMenu(false)} className="absolute top-4 right-4 md:top-6 md:right-6 p-2 bg-white/5 hover:bg-white/10 rounded-full text-white transition-colors z-20">
-                                    <X className="w-5 h-5 md:w-6 md:h-6" />
-                                </button>
+                            <div className="bg-[#111] rounded-2xl md:rounded-3xl w-full max-w-3xl max-h-[90vh] relative z-10 border border-white/10 flex flex-col shadow-2xl animate-fade-in-up overflow-hidden">
+                                {/* Header fijo para asegurar el botón X */}
+                                <div className="flex justify-between items-center p-5 md:p-6 border-b border-white/10 flex-shrink-0">
+                                    <h3 className="text-xl md:text-2xl font-bold text-white truncate">{t.hero.modalTitle}</h3>
+                                    <button onClick={() => setShowServicesMenu(false)} className="p-2 bg-white/5 hover:bg-white/10 rounded-full text-white transition-colors flex-shrink-0">
+                                        <X className="w-5 h-5 md:w-6 md:h-6" />
+                                    </button>
+                                </div>
                                 
-                                <div className="p-6 md:p-10">
-                                    <h3 className="text-2xl md:text-3xl font-bold text-white mb-2">{t.hero.modalTitle}</h3>
-                                    <p className="text-gray-400 text-sm md:text-base mb-8">{t.hero.modalDesc}</p>
+                                {/* Contenido desplazable */}
+                                <div className="p-5 md:p-8 overflow-y-auto custom-scrollbar">
+                                    <p className="text-gray-400 text-sm md:text-base mb-6">{t.hero.modalDesc}</p>
 
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
                                         <div className="bg-white/5 border border-white/5 p-5 rounded-xl hover:bg-white/10 transition-colors">
-                                            <div className="w-10 h-10 rounded-lg bg-blue-500/20 text-blue-500 flex items-center justify-center mb-4">
-                                                <Zap className="w-5 h-5" />
-                                            </div>
+                                            <div className="w-10 h-10 rounded-lg bg-blue-500/20 text-blue-500 flex items-center justify-center mb-4"><Zap className="w-5 h-5" /></div>
                                             <h4 className="text-white font-bold mb-2">{t.hero.strat1Title}</h4>
                                             <p className="text-gray-400 text-sm">{t.hero.strat1Desc}</p>
                                         </div>
-
                                         <div className="bg-white/5 border border-white/5 p-5 rounded-xl hover:bg-white/10 transition-colors">
-                                            <div className="w-10 h-10 rounded-lg bg-purple-500/20 text-purple-500 flex items-center justify-center mb-4">
-                                                <BarChart className="w-5 h-5" />
-                                            </div>
+                                            <div className="w-10 h-10 rounded-lg bg-purple-500/20 text-purple-500 flex items-center justify-center mb-4"><BarChart className="w-5 h-5" /></div>
                                             <h4 className="text-white font-bold mb-2">{t.hero.strat2Title}</h4>
                                             <p className="text-gray-400 text-sm">{t.hero.strat2Desc}</p>
                                         </div>
-
                                         <div className="bg-white/5 border border-white/5 p-5 rounded-xl hover:bg-white/10 transition-colors">
-                                            <div className="w-10 h-10 rounded-lg bg-green-500/20 text-green-500 flex items-center justify-center mb-4">
-                                                <TrendingUp className="w-5 h-5" />
-                                            </div>
+                                            <div className="w-10 h-10 rounded-lg bg-green-500/20 text-green-500 flex items-center justify-center mb-4"><TrendingUp className="w-5 h-5" /></div>
                                             <h4 className="text-white font-bold mb-2">{t.hero.strat3Title}</h4>
                                             <p className="text-gray-400 text-sm">{t.hero.strat3Desc}</p>
                                         </div>
-
                                         <div className="bg-white/5 border border-white/5 p-5 rounded-xl hover:bg-white/10 transition-colors">
-                                            <div className="w-10 h-10 rounded-lg bg-yellow-500/20 text-yellow-500 flex items-center justify-center mb-4">
-                                                <Crown className="w-5 h-5" />
-                                            </div>
+                                            <div className="w-10 h-10 rounded-lg bg-yellow-500/20 text-yellow-500 flex items-center justify-center mb-4"><Crown className="w-5 h-5" /></div>
                                             <h4 className="text-white font-bold mb-2">{t.hero.strat4Title}</h4>
                                             <p className="text-gray-400 text-sm">{t.hero.strat4Desc}</p>
                                         </div>
@@ -685,8 +672,6 @@
         // --- VIDEO SHOWCASE ---
         const VideoShowcase = () => {
             const { t } = useContext(LanguageContext);
-            
-            // Reemplaza este enlace con tu URL real de Google Drive
             const driveLink = "https://drive.google.com/drive/folders/1OlJiNGf1X181AVcgwlrhMdcTjFMrSdFP?usp=sharing";
 
             return (
@@ -723,55 +708,18 @@
             const { t } = useContext(LanguageContext);
             const [selectedPkg, setSelectedPkg] = useState(null);
             const [mode, setMode] = useState('tiers');
-            
             const [editingStyle, setEditingStyle] = useState('basic'); 
 
             const [activeServices, setActiveServices] = useState({ reels: false, thumbs: false, videos: false, design: false });
             const [config, setConfig] = useState({ reels: 10, thumbs: 2, videos: 1, design: 5 });
 
             const data = {
-                reels: {
-                    ...t.packages.data.reels,
-                    icon: <Smartphone className="w-6 h-6 md:w-8 md:h-8 text-white" />,
-                    color: "bg-blue-600",
-                    accent: "text-blue-500",
-                    base: 0
-                },
-                youtube: {
-                    ...t.packages.data.youtube,
-                    icon: <MonitorPlay className="w-6 h-6 md:w-8 md:h-8 text-white" />,
-                    color: "bg-red-600",
-                    accent: "text-red-500",
-                    base: 0
-                },
-                streamer: {
-                    ...t.packages.data.streamer,
-                    icon: <Twitch className="w-6 h-6 md:w-8 md:h-8 text-white" />,
-                    color: "bg-purple-600",
-                    accent: "text-purple-500",
-                    base: 0
-                },
-                empresarial: {
-                    ...t.packages.data.empresarial,
-                    icon: <Briefcase className="w-6 h-6 md:w-8 md:h-8 text-white" />,
-                    color: "bg-indigo-600",
-                    accent: "text-indigo-500",
-                    base: 1700 // Tarifa base de Gestión de Redes
-                },
-                podcast: {
-                    ...t.packages.data.podcast,
-                    icon: <Mic className="w-6 h-6 md:w-8 md:h-8 text-white" />,
-                    color: "bg-green-600",
-                    accent: "text-green-500",
-                    base: 0
-                },
-                mixed: {
-                    ...t.packages.data.mixed,
-                    icon: <Layers className="w-6 h-6 md:w-8 md:h-8 text-white" />,
-                    color: "bg-yellow-600",
-                    accent: "text-yellow-500",
-                    base: 0
-                }
+                reels: { ...t.packages.data.reels, icon: <Smartphone className="w-6 h-6 md:w-8 md:h-8 text-white" />, color: "bg-blue-600", accent: "text-blue-500", base: 0 },
+                youtube: { ...t.packages.data.youtube, icon: <MonitorPlay className="w-6 h-6 md:w-8 md:h-8 text-white" />, color: "bg-red-600", accent: "text-red-500", base: 0 },
+                streamer: { ...t.packages.data.streamer, icon: <Twitch className="w-6 h-6 md:w-8 md:h-8 text-white" />, color: "bg-purple-600", accent: "text-purple-500", base: 0 },
+                empresarial: { ...t.packages.data.empresarial, icon: <Briefcase className="w-6 h-6 md:w-8 md:h-8 text-white" />, color: "bg-indigo-600", accent: "text-indigo-500", base: 1700 },
+                podcast: { ...t.packages.data.podcast, icon: <Mic className="w-6 h-6 md:w-8 md:h-8 text-white" />, color: "bg-green-600", accent: "text-green-500", base: 0 },
+                mixed: { ...t.packages.data.mixed, icon: <Layers className="w-6 h-6 md:w-8 md:h-8 text-white" />, color: "bg-yellow-600", accent: "text-yellow-500", base: 0 }
             };
 
             const handleCardClick = (k) => {
@@ -789,13 +737,8 @@
                 setActiveServices(defaults);
             };
 
-            // Lógica Centralizada de Precios (Reel Básico = 150)
             const getPrice = (service, style) => {
-                if (service === 'reels') {
-                    if (style === 'basic') return 150;
-                    if (style === 'semi') return 350;
-                    if (style === 'dynamic') return 550;
-                }
+                if (service === 'reels') return style === 'basic' ? 150 : style === 'semi' ? 350 : 550;
                 const multiplier = style === 'basic' ? 1 : style === 'semi' ? 1.25 : 1.5;
                 const bases = { thumbs: 250, videos: 1500, design: 300 };
                 return bases[service] * multiplier;
@@ -817,20 +760,14 @@
             const calcTotal = () => {
                 let total = 0;
                 if(!selectedPkg) return 0;
-                const p = data[selectedPkg];
-                total += getBaseFee(p.base, editingStyle);
-                
-                if(activeServices.reels) total += config.reels * getPrice('reels', editingStyle);
-                if(activeServices.thumbs) total += config.thumbs * getPrice('thumbs', editingStyle);
-                if(activeServices.videos) total += config.videos * getPrice('videos', editingStyle);
-                if(activeServices.design) total += config.design * getPrice('design', editingStyle);
-                
+                total += getBaseFee(data[selectedPkg].base, editingStyle);
+                Object.keys(activeServices).forEach(key => {
+                    if (activeServices[key]) total += config[key] * getPrice(key, editingStyle);
+                });
                 return total;
             };
 
-            const toggleService = (id) => {
-                setActiveServices(prev => ({ ...prev, [id]: !prev[id] }));
-            };
+            const toggleService = (id) => setActiveServices(prev => ({ ...prev, [id]: !prev[id] }));
 
             const handleWhatsApp = (tierName = null) => {
                 const styleName = editingStyle === 'basic' ? t.packages.styleBasic : (editingStyle === 'semi' ? t.packages.styleSemi : t.packages.styleDyn);
@@ -843,11 +780,19 @@
                     text = `${t.packages.whatsappMsg} "${pkgTitle}" (Nivel: ${tierName}). Estilo de edición: ${styleName}. Total estimado: $${total} ${t.packages.currency}. ¿Podemos agendar?`;
                 } else {
                     const total = calcTotal().toLocaleString('es-MX');
-                    text = `${t.packages.whatsappMsg} "${pkgTitle}" (A la medida). Estilo de edición: ${styleName}. ${t.packages.estimated}: $${total} ${t.packages.currency}. Mis servicios activos son: ${activeServices.reels ? config.reels+' Reels, ' : ''}${activeServices.thumbs ? config.thumbs+' Miniaturas, ' : ''}${activeServices.videos ? config.videos+' Videos, ' : ''}${activeServices.design ? config.design+' Diseños' : ''}. ¿Podemos agendar?`;
+                    const details = Object.keys(activeServices).filter(k => activeServices[k]).map(k => `${config[k]} ${t.packages.customLabels[k]}`).join(', ');
+                    text = `${t.packages.whatsappMsg} "${pkgTitle}" (A la medida). Estilo de edición: ${styleName}. ${t.packages.estimated}: $${total} ${t.packages.currency}. Mis servicios activos son: ${details}. ¿Podemos agendar?`;
                 }
                 
                 window.open(`https://wa.me/525533499847?text=${encodeURIComponent(text)}`, '_blank');
             };
+
+            const customServiceControls = [
+                { id: 'reels', icon: <Smartphone className="w-4 h-4 md:w-5 md:h-5"/>, label: t.packages.customLabels.reels, max: 30 },
+                { id: 'thumbs', icon: <ImageIcon className="w-4 h-4 md:w-5 md:h-5"/>, label: t.packages.customLabels.thumbs, max: 20 },
+                { id: 'videos', icon: <Video className="w-4 h-4 md:w-5 md:h-5"/>, label: t.packages.customLabels.videos, max: 10 },
+                { id: 'design', icon: <Palette className="w-4 h-4 md:w-5 md:h-5"/>, label: t.packages.customLabels.design, max: 20 }
+            ];
 
             return (
                 <section id="paquetes" className="py-16 md:py-32 bg-[#050505]">
@@ -859,12 +804,12 @@
 
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
                             {Object.entries(data).map(([k, p]) => (
-                                <div key={k} onClick={() => handleCardClick(k)} className="group cursor-pointer relative bg-white/5 rounded-3xl border border-white/10 hover:border-white/30 transition-all hover:-translate-y-1 md:hover:-translate-y-2 overflow-hidden">
+                                <div key={k} onClick={() => handleCardClick(k)} className="group cursor-pointer relative bg-white/5 rounded-3xl border border-white/10 hover:border-white/30 transition-all hover:-translate-y-1 md:hover:-translate-y-2 overflow-hidden shadow-lg hover:shadow-[0_0_30px_rgba(255,255,255,0.05)]">
                                     <div className={`absolute top-0 w-full h-1 ${p.color}`}></div>
                                     <div className="p-6 md:p-8 flex flex-col items-center text-center h-full">
                                         <div className={`w-12 h-12 md:w-16 md:h-16 rounded-2xl flex items-center justify-center mb-4 md:mb-6 shadow-lg ${p.color}`}>{p.icon}</div>
                                         <h3 className="text-xl md:text-2xl font-bold text-white mb-2">{p.title}</h3>
-                                        <p className="text-gray-400 mb-6 md:mb-8 text-xs md:text-sm">{p.desc}</p>
+                                        <p className="text-gray-400 mb-6 md:mb-8 text-xs md:text-sm flex-grow">{p.desc}</p>
                                         <button className="mt-auto w-full md:w-auto px-6 py-2 rounded-full bg-white/10 text-white text-xs md:text-sm font-bold group-hover:bg-white group-hover:text-black transition-all">{t.packages.btnViewTiers}</button>
                                     </div>
                                 </div>
@@ -872,38 +817,43 @@
                         </div>
                     </div>
 
-                    {/* MODAL */}
+                    {/* MODAL DEL CONFIGURADOR (REPARADO PARA MÓVIL) */}
                     {selectedPkg && (
                         <div className="fixed inset-0 z-[100] flex items-center justify-center p-2 sm:p-4">
                             <div className="absolute inset-0 bg-black/80 backdrop-blur-md" onClick={() => setSelectedPkg(null)}></div>
-                            <div className="bg-[#111] rounded-2xl md:rounded-3xl w-full max-w-5xl max-h-[95vh] overflow-y-auto relative z-10 border border-white/10 flex flex-col shadow-2xl">
-                                
-                                <div className={`p-5 md:p-8 ${data[selectedPkg].color} relative overflow-hidden flex-shrink-0`}>
-                                    <button onClick={() => setSelectedPkg(null)} className="absolute top-4 right-4 md:top-6 md:right-6 p-2 bg-black/20 hover:bg-black/40 rounded-full text-white z-50 cursor-pointer hover:scale-110 transition-all"><X className="w-4 h-4 md:w-6 md:h-6" /></button>
-                                    <div className="relative z-10 flex flex-col sm:flex-row items-center sm:items-start gap-4 md:gap-6 text-center sm:text-left">
-                                        <div className="p-3 md:p-4 bg-white/20 backdrop-blur-md rounded-xl md:rounded-2xl">{data[selectedPkg].icon}</div>
-                                        <div className="w-full">
-                                            <h3 className="text-2xl md:text-3xl font-bold text-white mb-1 md:mb-0">{data[selectedPkg].title}</h3>
-                                            
-                                            <div className="flex flex-col sm:flex-row mt-3 md:mt-4 bg-black/30 p-1 rounded-xl w-full sm:w-fit mx-auto sm:mx-0">
-                                                <button onClick={() => setMode('tiers')} className={`px-4 py-2 rounded-lg text-xs md:text-sm font-bold flex justify-center items-center gap-2 ${mode === 'tiers' ? 'bg-white text-black' : 'text-white/70 hover:text-white'}`}><Package className="w-3 h-3 md:w-4 md:h-4" /> {t.packages.tabTiers}</button>
-                                                <button onClick={() => setMode('custom')} className={`px-4 py-2 rounded-lg text-xs md:text-sm font-bold flex justify-center items-center gap-2 ${mode === 'custom' ? 'bg-white text-black' : 'text-white/70 hover:text-white'}`}><Sliders className="w-3 h-3 md:w-4 md:h-4" /> {t.packages.tabCustom}</button>
+                            
+                            <div className="bg-[#111] rounded-2xl md:rounded-3xl w-full max-w-5xl max-h-[90vh] flex flex-col relative z-10 border border-white/10 shadow-2xl overflow-hidden">
+                                {/* Encabezado Fijo (No escrollea) */}
+                                <div className={`p-4 md:p-6 ${data[selectedPkg].color} relative flex-shrink-0 shadow-xl z-20`}>
+                                    <div className="flex justify-between items-start mb-4 md:mb-6">
+                                        <div className="flex items-center gap-3 pr-2">
+                                            <div className="p-2 md:p-3 bg-white/20 backdrop-blur-md rounded-xl">{data[selectedPkg].icon}</div>
+                                            <div>
+                                                <h3 className="text-xl md:text-3xl font-bold text-white leading-tight">{data[selectedPkg].title}</h3>
+                                                <p className="text-white/80 text-xs hidden sm:block mt-1">{data[selectedPkg].desc}</p>
                                             </div>
+                                        </div>
+                                        <button onClick={() => setSelectedPkg(null)} className="p-2 bg-black/20 hover:bg-black/40 rounded-full text-white transition-all flex-shrink-0">
+                                            <X className="w-5 h-5 md:w-6 md:h-6" />
+                                        </button>
+                                    </div>
+                                    
+                                    <div className="flex flex-col md:flex-row md:items-center justify-between gap-3">
+                                        <div className="flex bg-black/30 p-1 rounded-lg w-full md:w-auto">
+                                            <button onClick={() => setMode('tiers')} className={`flex-1 md:flex-none px-3 py-1.5 rounded-md text-xs md:text-sm font-bold flex justify-center items-center gap-2 ${mode === 'tiers' ? 'bg-white text-black' : 'text-white/70 hover:text-white'}`}><Package className="w-4 h-4" /> {t.packages.tabTiers}</button>
+                                            <button onClick={() => setMode('custom')} className={`flex-1 md:flex-none px-3 py-1.5 rounded-md text-xs md:text-sm font-bold flex justify-center items-center gap-2 ${mode === 'custom' ? 'bg-white text-black' : 'text-white/70 hover:text-white'}`}><Sliders className="w-4 h-4" /> {t.packages.tabCustom}</button>
+                                        </div>
 
-                                            {/* Selector de Estilo de Edición */}
-                                            <div className="mt-4 md:mt-5 pt-4 md:pt-5 border-t border-white/10 w-full">
-                                                <label className="text-[10px] md:text-xs font-bold text-white/60 uppercase tracking-widest mb-2 block text-center sm:text-left">{t.packages.styleLabel}</label>
-                                                <div className="flex flex-wrap justify-center sm:justify-start gap-2">
-                                                    <button onClick={() => setEditingStyle('basic')} className={`px-3 md:px-4 py-1.5 md:py-2 rounded-lg text-[10px] md:text-xs font-bold transition-all ${editingStyle === 'basic' ? 'bg-white text-black shadow-lg' : 'bg-black/30 text-white/70 hover:bg-white/10 hover:text-white'}`}>{t.packages.styleBasic}</button>
-                                                    <button onClick={() => setEditingStyle('semi')} className={`px-3 md:px-4 py-1.5 md:py-2 rounded-lg text-[10px] md:text-xs font-bold transition-all ${editingStyle === 'semi' ? 'bg-white text-black shadow-lg' : 'bg-black/30 text-white/70 hover:bg-white/10 hover:text-white'}`}>{t.packages.styleSemi}</button>
-                                                    <button onClick={() => setEditingStyle('dynamic')} className={`px-3 md:px-4 py-1.5 md:py-2 rounded-lg text-[10px] md:text-xs font-bold transition-all ${editingStyle === 'dynamic' ? 'bg-white text-black shadow-lg' : 'bg-black/30 text-white/70 hover:bg-white/10 hover:text-white'}`}>{t.packages.styleDyn}</button>
-                                                </div>
-                                            </div>
+                                        <div className="flex items-center gap-1.5 md:gap-2 overflow-x-auto hide-scrollbar pb-1 md:pb-0 w-full md:w-auto">
+                                            <button onClick={() => setEditingStyle('basic')} className={`flex-1 md:flex-none whitespace-nowrap px-3 py-1.5 rounded-md text-[10px] md:text-xs font-bold transition-all ${editingStyle === 'basic' ? 'bg-white text-black shadow-lg' : 'bg-black/30 text-white/70 hover:bg-white/10 hover:text-white'}`}>{t.packages.styleBasic}</button>
+                                            <button onClick={() => setEditingStyle('semi')} className={`flex-1 md:flex-none whitespace-nowrap px-3 py-1.5 rounded-md text-[10px] md:text-xs font-bold transition-all ${editingStyle === 'semi' ? 'bg-white text-black shadow-lg' : 'bg-black/30 text-white/70 hover:bg-white/10 hover:text-white'}`}>{t.packages.styleSemi}</button>
+                                            <button onClick={() => setEditingStyle('dynamic')} className={`flex-1 md:flex-none whitespace-nowrap px-3 py-1.5 rounded-md text-[10px] md:text-xs font-bold transition-all ${editingStyle === 'dynamic' ? 'bg-white text-black shadow-lg' : 'bg-black/30 text-white/70 hover:bg-white/10 hover:text-white'}`}>{t.packages.styleDyn}</button>
                                         </div>
                                     </div>
                                 </div>
 
-                                <div className="p-5 md:p-8 bg-[#111] flex-grow">
+                                {/* Cuerpo Desplazable (Scroll) */}
+                                <div className="p-4 md:p-6 bg-[#111] overflow-y-auto custom-scrollbar flex-grow">
                                     {mode === 'tiers' ? (
                                         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
                                             {data[selectedPkg].tiers.map((tier, i) => (
@@ -918,7 +868,7 @@
                                                             <li key={j} className="flex gap-2 text-xs md:text-sm text-gray-400"><Check className={`w-3 h-3 md:w-4 md:h-4 flex-shrink-0 ${data[selectedPkg].accent}`} /> <span>{f}</span></li>
                                                         ))}
                                                     </ul>
-                                                    <button onClick={() => handleWhatsApp(tier.name)} className={`w-full py-3 rounded-xl font-bold text-white text-sm md:text-base ${data[selectedPkg].color} hover:opacity-90 transition-opacity`}>Elegir {tier.name}</button>
+                                                    <button onClick={() => handleWhatsApp(tier.name)} className={`w-full py-3 rounded-xl font-bold text-white text-sm md:text-base ${data[selectedPkg].color} hover:opacity-90 transition-opacity mt-auto`}>Elegir {tier.name}</button>
                                                 </div>
                                             ))}
                                             <div className="col-span-1 md:col-span-3 text-center mt-2 md:mt-4">
@@ -926,17 +876,12 @@
                                             </div>
                                         </div>
                                     ) : (
-                                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12">
+                                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-12">
                                             <div className="space-y-6 md:space-y-8">
                                                 <div>
                                                     <h4 className="text-lg md:text-xl font-bold text-white mb-3 md:mb-4">{t.packages.step1}</h4>
                                                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                                                        {[
-                                                            { id: 'reels', icon: <Smartphone className="w-4 h-4 md:w-5 md:h-5"/>, label: t.packages.customLabels.reels },
-                                                            { id: 'thumbs', icon: <ImageIcon className="w-4 h-4 md:w-5 md:h-5"/>, label: t.packages.customLabels.thumbs },
-                                                            { id: 'videos', icon: <Video className="w-4 h-4 md:w-5 md:h-5"/>, label: t.packages.customLabels.videos },
-                                                            { id: 'design', icon: <Palette className="w-4 h-4 md:w-5 md:h-5"/>, label: t.packages.customLabels.design }
-                                                        ].map((s) => (
+                                                        {customServiceControls.map((s) => (
                                                             <button key={s.id} onClick={() => toggleService(s.id)} 
                                                                 className={`p-3 rounded-xl border flex items-center gap-3 transition-all ${activeServices[s.id] ? `border-white bg-white text-black` : 'border-white/10 bg-white/5 text-gray-400 hover:bg-white/10'}`}>
                                                                 {s.icon} <span className="font-bold text-xs md:text-sm">{s.label}</span>
@@ -949,33 +894,41 @@
                                                     <h4 className="text-lg md:text-xl font-bold text-white">{t.packages.step2}</h4>
                                                     {!Object.values(activeServices).some(Boolean) && <div className="text-gray-500 text-xs md:text-sm border border-dashed border-gray-700 p-4 rounded-xl text-center">{t.packages.selectService}</div>}
                                                     
-                                                    {activeServices.reels && <div><div className="flex justify-between text-white text-xs md:text-sm font-bold mb-2"><span>{t.packages.customLabels.reels}</span><span>{config.reels}</span></div><input type="range" min="1" max="30" value={config.reels} onChange={e=>setConfig({...config, reels: parseInt(e.target.value)})} className="w-full accent-white" /></div>}
-                                                    {activeServices.thumbs && <div><div className="flex justify-between text-white text-xs md:text-sm font-bold mb-2"><span>{t.packages.customLabels.thumbs}</span><span>{config.thumbs}</span></div><input type="range" min="1" max="20" value={config.thumbs} onChange={e=>setConfig({...config, thumbs: parseInt(e.target.value)})} className="w-full accent-white" /></div>}
-                                                    {activeServices.videos && <div><div className="flex justify-between text-white text-xs md:text-sm font-bold mb-2"><span>{t.packages.customLabels.videos}</span><span>{config.videos}</span></div><input type="range" min="1" max="10" value={config.videos} onChange={e=>setConfig({...config, videos: parseInt(e.target.value)})} className="w-full accent-white" /></div>}
-                                                    {activeServices.design && <div><div className="flex justify-between text-white text-xs md:text-sm font-bold mb-2"><span>{t.packages.customLabels.design}</span><span>{config.design}</span></div><input type="range" min="1" max="20" value={config.design} onChange={e=>setConfig({...config, design: parseInt(e.target.value)})} className="w-full accent-white" /></div>}
+                                                    {customServiceControls.map((s) => activeServices[s.id] && (
+                                                        <div key={`slider-${s.id}`}>
+                                                            <div className="flex justify-between text-white text-xs md:text-sm font-bold mb-2">
+                                                                <span>{s.label}</span><span>{config[s.id]}</span>
+                                                            </div>
+                                                            <input type="range" min="1" max={s.max} value={config[s.id]} onChange={e => setConfig({...config, [s.id]: parseInt(e.target.value)})} className="w-full accent-white" />
+                                                        </div>
+                                                    ))}
                                                 </div>
                                             </div>
 
-                                            <div className="bg-[#050505] rounded-xl md:rounded-2xl p-5 md:p-8 border border-white/10 flex flex-col justify-between">
+                                            <div className="bg-[#050505] rounded-xl md:rounded-2xl p-5 md:p-8 border border-white/10 flex flex-col justify-between h-full">
                                                 <div>
                                                     <h4 className="text-gray-400 uppercase tracking-widest text-[10px] md:text-sm font-bold mb-4 md:mb-6">{t.packages.summary}</h4>
                                                     <ul className="space-y-3 md:space-y-4 text-xs md:text-sm text-gray-300">
-                                                        {activeServices.reels && <li className="flex justify-between"><span>{config.reels} x {t.packages.customLabels.reels}</span><span>${(config.reels * getPrice('reels', editingStyle)).toLocaleString('es-MX')}</span></li>}
-                                                        {activeServices.thumbs && <li className="flex justify-between"><span>{config.thumbs} x {t.packages.customLabels.thumbs}</span><span>${(config.thumbs * getPrice('thumbs', editingStyle)).toLocaleString('es-MX')}</span></li>}
-                                                        {activeServices.videos && <li className="flex justify-between"><span>{config.videos} x {t.packages.customLabels.videos}</span><span>${(config.videos * getPrice('videos', editingStyle)).toLocaleString('es-MX')}</span></li>}
-                                                        {activeServices.design && <li className="flex justify-between"><span>{config.design} x {t.packages.customLabels.design}</span><span>${(config.design * getPrice('design', editingStyle)).toLocaleString('es-MX')}</span></li>}
-                                                        
+                                                        {customServiceControls.map((s) => activeServices[s.id] && (
+                                                            <li key={`sum-${s.id}`} className="flex justify-between">
+                                                                <span>{config[s.id]} x {s.label}</span>
+                                                                <span>${(config[s.id] * getPrice(s.id, editingStyle)).toLocaleString('es-MX')}</span>
+                                                            </li>
+                                                        ))}
                                                         {data[selectedPkg].base > 0 && (
-                                                            <li className="flex justify-between pt-3 md:pt-4 border-t border-white/10 text-[10px] md:text-xs text-gray-500 uppercase"><span>{t.packages.baseFee}</span><span>${getBaseFee(data[selectedPkg].base, editingStyle).toLocaleString('es-MX')}</span></li>
+                                                            <li className="flex justify-between pt-3 md:pt-4 border-t border-white/10 text-[10px] md:text-xs text-gray-500 uppercase">
+                                                                <span>{t.packages.baseFee}</span>
+                                                                <span>${getBaseFee(data[selectedPkg].base, editingStyle).toLocaleString('es-MX')}</span>
+                                                            </li>
                                                         )}
                                                     </ul>
                                                 </div>
                                                 <div className="mt-6 md:mt-8 pt-4 md:pt-6 border-t border-white/10">
                                                     <div className="flex justify-between items-end mb-4 md:mb-6">
                                                         <span className="text-gray-400 text-xs md:text-sm">{t.packages.estimated}</span>
-                                                        <span className="text-2xl md:text-4xl font-bold text-white">${calcTotal().toLocaleString('es-MX')} {t.packages.currency}</span>
+                                                        <span className="text-2xl md:text-4xl font-bold text-white">${calcTotal().toLocaleString('es-MX')}</span>
                                                     </div>
-                                                    <button onClick={handleWhatsApp} className="w-full bg-[#25D366] text-white py-3 md:py-4 rounded-xl font-bold hover:bg-[#1ebd5a] transition-colors flex items-center justify-center gap-2 text-sm md:text-base shadow-lg shadow-[#25D366]/20">
+                                                    <button onClick={() => handleWhatsApp(null)} className="w-full bg-[#25D366] text-white py-3 md:py-4 rounded-xl font-bold hover:bg-[#1ebd5a] transition-colors flex items-center justify-center gap-2 text-sm md:text-base shadow-lg shadow-[#25D366]/20">
                                                         <MessageCircle className="w-4 h-4 md:w-5 md:h-5" /> {t.packages.btnConfirm}
                                                     </button>
                                                     <p className="text-center text-[9px] md:text-xs text-gray-500 mt-3 md:mt-4 uppercase tracking-widest">{t.packages.paymentNote}</p>
@@ -1048,9 +1001,9 @@
                             <div>
                                 <h4 className="font-bold mb-4">{t.footer.srvTitle}</h4>
                                 <ul className="space-y-2 text-gray-500 text-sm">
-                                    <li><a href="#" className="hover:text-white">{t.footer.srv1}</a></li>
-                                    <li><a href="#" className="hover:text-white">{t.footer.srv2}</a></li>
-                                    <li><a href="#" className="hover:text-white">{t.footer.srv3}</a></li>
+                                    <li><a href="#servicios" className="hover:text-white">{t.footer.srv1}</a></li>
+                                    <li><a href="#showcase" className="hover:text-white">{t.footer.srv2}</a></li>
+                                    <li><a href="#paquetes" className="hover:text-white">{t.footer.srv3}</a></li>
                                 </ul>
                             </div>
                             <div>
@@ -1076,7 +1029,7 @@
 
             return (
                 <LanguageContext.Provider value={{ lang, setLang, t }}>
-                    <div className="min-h-screen font-sans selection:bg-blue-500 selection:text-white">
+                    <div className="min-h-screen font-sans selection:bg-blue-500 selection:text-white pb-16 md:pb-0">
                         <Navigation />
                         <main>
                             <HeroSection />
